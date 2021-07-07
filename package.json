@@ -7,7 +7,8 @@
     "start": "nodemon",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --config .prettierrc.json --write src/**/*.ts"
+    "format": "prettier --config .prettierrc.json --write src/**/*.ts",
+    "lint": "pretty-quick --staged"
   },
   "repository": {
     "type": "git",
@@ -37,10 +38,5 @@
     "express": "^4.17.1",
     "mysql2": "^2.2.5",
     "sequelize": "^6.6.5"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
   }
 }
