@@ -1,7 +1,7 @@
 export default class error {
-    private constructor() {}
+  private constructor() {}
 
-    public static throw(message: string) {
-        throw new Error(message);
-    }
+  public static throw(message: string) {
+    throw new Error(message);
+  }
 }

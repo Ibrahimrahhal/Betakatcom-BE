@@ -8,7 +8,8 @@
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --config .prettierrc.json --write src/**/*.ts",
-    "lint": "pretty-quick --staged"
+    "lint": "pretty-quick --staged",
+    "full-lint": "eslint -c .eslintrc.js"
   },
   "repository": {
     "type": "git",
