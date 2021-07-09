@@ -1,20 +1,23 @@
 import { Model, DataTypes } from "sequelize";
-import SequelizeInstance from './connection';
+import SequelizeInstance from "./connection";
 
-class NotificationType extends Model { };
+class NotificationType extends Model {}
 
-NotificationType.init({
+NotificationType.init(
+  {
     id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true
+      type: DataTypes.INTEGER,
+      primaryKey: true,
     },
     name: {
-        type: DataTypes.STRING,
-        allowNull: false 
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-  }, {
-    sequelize: SequelizeInstance, 
-    modelName: 'NotificationType'
-});
- 
+  },
+  {
+    sequelize: SequelizeInstance,
+    modelName: "NotificationType",
+  }
+);
+
 export default NotificationType;

@@ -1,20 +1,23 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
-import SequelizeInstance from './connection';
+import SequelizeInstance from "./connection";
 
-class TransactionType extends Model { };
+class TransactionType extends Model {}
 
-TransactionType.init({
+TransactionType.init(
+  {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
-  }, {
-    sequelize: SequelizeInstance, 
-    modelName: 'TransactionType'
-});
- 
+      allowNull: false,
+    },
+  },
+  {
+    sequelize: SequelizeInstance,
+    modelName: "TransactionType",
+  }
+);
+
 export default TransactionType;

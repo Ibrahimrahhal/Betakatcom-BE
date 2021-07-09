@@ -1,30 +1,33 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
-import SequelizeInstance from './connection';
+import SequelizeInstance from "./connection";
 
-class Card extends Model { };
+class Card extends Model {}
 
-Card.init({
+Card.init(
+  {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
     },
     code: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
     },
     type: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     createdOn: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: Sequelize.fn('now')
+      defaultValue: Sequelize.fn("now"),
     },
-  }, {
-    sequelize: SequelizeInstance, 
-    modelName: 'Card'
-});
- 
+  },
+  {
+    sequelize: SequelizeInstance,
+    modelName: "Card",
+  }
+);
+
 export default Card;

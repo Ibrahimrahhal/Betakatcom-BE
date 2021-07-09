@@ -1,40 +1,43 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
-import SequelizeInstance from './connection';
+import SequelizeInstance from "./connection";
 
-class Transaction extends Model { };
+class Transaction extends Model {}
 
-Transaction.init({
+Transaction.init(
+  {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
     },
     type: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     purchase: {
-        type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
     },
     amount: {
-        type: DataTypes.DOUBLE,
-        allowNull: false
+      type: DataTypes.DOUBLE,
+      allowNull: false,
     },
     createdBy: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     userEffected: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     createdOn: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.fn('now')
-      },
-  }, {
-    sequelize: SequelizeInstance, 
-    modelName: 'Transaction'
-});
- 
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: Sequelize.fn("now"),
+    },
+  },
+  {
+    sequelize: SequelizeInstance,
+    modelName: "Transaction",
+  }
+);
+
 export default Transaction;
