@@ -22,6 +22,7 @@ CardType.init(
     },
     price: {
       type: DataTypes.DOUBLE,
+      allowNull: false,
     },
     createdOn: {
       type: DataTypes.DATE,

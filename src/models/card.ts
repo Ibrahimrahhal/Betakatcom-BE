@@ -1,5 +1,6 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
 import SequelizeInstance from "./connection";
+import CardType from './cardType';
 
 class Card extends Model {}
 
@@ -17,6 +18,10 @@ Card.init(
     type: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: CardType,
+        key: 'id'
+      }
     },
     createdOn: {
       type: DataTypes.DATE,

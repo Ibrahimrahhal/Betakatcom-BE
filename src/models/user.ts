@@ -1,5 +1,7 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
 import SequelizeInstance from "./connection";
+import UserType from './userType';
+import Wallet from "./wallet";
 
 class User extends Model {}
 
@@ -22,8 +24,21 @@ User.init(
     token: {
       type: DataTypes.STRING,
     },
+    type: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: UserType,
+            key: 'id',
+        }
+    },
     wallet: {
       type: DataTypes.INTEGER,
+      unique: true,
+      references: {
+            model: Wallet,
+            key: 'id'
+        }
     },
     createdOn: {
       type: DataTypes.DATE,
