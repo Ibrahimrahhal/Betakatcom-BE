@@ -1,6 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import SequelizeInstance from "./connection";
-import NotificationType from "./notification";
+import NotificationType from "./notificationType";
 import User from "./user";
 
 class Notification extends Model {}

@@ -1,8 +1,6 @@
 import express, { Application, Request, Response, NextFunction } from "express";
-import dotenv from "dotenv";
-
-//loading .env file
-dotenv.config();
+import dotenv from "dotenv"; /* loading .env file */ dotenv.config();
+import './models/index';
 
 // Boot express
 const app: Application = express();
