@@ -1,7 +1,7 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
 import SequelizeInstance from "./connection";
-import Card from './card';
-import User from './user';
+import Card from "./card";
+import User from "./user";
 
 class CardPurchase extends Model {}
 
@@ -17,16 +17,16 @@ CardPurchase.init(
       unique: true,
       references: {
         model: Card,
-        key: 'id'
-      }
+        key: "id",
+      },
     },
     customer: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: User,
-        key: 'id'
-      }
+        key: "id",
+      },
     },
     createdOn: {
       type: DataTypes.DATE,

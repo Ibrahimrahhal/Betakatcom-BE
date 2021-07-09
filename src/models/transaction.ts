@@ -1,8 +1,8 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
 import SequelizeInstance from "./connection";
-import TransactionType from './transactionType';
-import CardPurchase from './cardPurchase';
-import User from './user';
+import TransactionType from "./transactionType";
+import CardPurchase from "./cardPurchase";
+import User from "./user";
 
 class Transaction extends Model {}
 
@@ -16,16 +16,16 @@ Transaction.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-          model: TransactionType,
-          key: 'id'
-      }
+        model: TransactionType,
+        key: "id",
+      },
     },
     purchase: {
       type: DataTypes.INTEGER,
       references: {
-          model: CardPurchase,
-          key: 'id'
-      }
+        model: CardPurchase,
+        key: "id",
+      },
     },
     amount: {
       type: DataTypes.DOUBLE,
@@ -36,15 +36,15 @@ Transaction.init(
       allowNull: false,
       references: {
         model: User,
-        key: 'id'
-    }
+        key: "id",
+      },
     },
     userEffected: {
       type: DataTypes.INTEGER,
       references: {
-          model: User,
-          key: 'id'
-      }
+        model: User,
+        key: "id",
+      },
     },
     createdOn: {
       type: DataTypes.DATE,

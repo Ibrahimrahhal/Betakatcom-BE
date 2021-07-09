@@ -1,7 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import SequelizeInstance from "./connection";
-import NotificationType from './notification';
-import User from './user';
+import NotificationType from "./notification";
+import User from "./user";
 
 class Notification extends Model {}
 
@@ -15,17 +15,17 @@ Notification.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-          model: NotificationType,
-          key: 'id'
-      }
+        model: NotificationType,
+        key: "id",
+      },
     },
     user: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-          model: User,
-          key: 'id'
-      }
+        model: User,
+        key: "id",
+      },
     },
     details: {
       type: DataTypes.STRING,
