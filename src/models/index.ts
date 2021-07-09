@@ -1,12 +1,26 @@
-import { Sequelize } from "sequelize";
-import { config } from "../utils";
+import _User from './user';
+import _UserType from './userType';
+import _Card from './card';
+import _CardType from './cardType';
+import _CardPurchase from './cardPurchase';
+import _Transaction from './transaction';
+import _TransactionType from './transactionType';
+import _Notification from './notification';
+import _NotificationType from './notificationType';
 
-const databaseName = config.get("DB_NAME");
-const databaseUsername = config.get("DB_USER");
-const databasePassword = config.get("DB_PASS");
-const databaseHost = config.get("DB_HOST");
+import _Wallet from './wallet';
 
-const sequelize = new Sequelize(databaseName, databaseUsername, databasePassword, {
-  host: databaseHost,
-  dialect: "mysql",
-});
+export const User = _User;
+export const UserType = _UserType;
+
+export const Card = _Card; 
+export const CardType = _CardType; 
+export const CardPurchase = _CardPurchase;
+
+export const Transaction = _Transaction;
+export const TransactionType = _TransactionType;
+
+export const Notification = _Notification;
+export const NotificationType = _NotificationType;
+
+export const Wallet = _Wallet;
