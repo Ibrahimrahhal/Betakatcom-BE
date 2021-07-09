@@ -8,7 +8,7 @@ const databaseHost = config.get("DB_HOST");
 const sequelize = new Sequelize(databaseName, databaseUsername, databasePassword, {
   host: databaseHost,
   dialect: "mysql",
-  logging: false
+  logging: false,
 });
 
 export default sequelize;
