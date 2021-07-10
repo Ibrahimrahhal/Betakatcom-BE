@@ -10,6 +10,8 @@ import _NotificationType from "./notificationType";
 
 import _Wallet from "./wallet";
 
+import Connection from "./connection";
+
 export const User = _User;
 export const UserType = _UserType;
 
@@ -24,3 +26,5 @@ export const Notification = _Notification;
 export const NotificationType = _NotificationType;
 
 export const Wallet = _Wallet;
+
+Connection.sync();
