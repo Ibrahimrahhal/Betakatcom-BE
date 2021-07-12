@@ -1,3 +1,3 @@
-export const HTTP_RESPONSES =  {
-    BAD_REQUEST: 400,
+export const HTTP_RESPONSES = {
+  BAD_REQUEST: 400,
 };

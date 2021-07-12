@@ -1,13 +1,13 @@
 import express, { Application, Request, Response, NextFunction, Router, RequestHandler } from "express";
-import { config } from './utils';
-import { auth } from './middlewares';
+import { config } from "./utils";
+import { auth } from "./middlewares";
 
 export default class server {
-  private static routers: {private: Router[], public: Router[]} = { private: [] , public: []};
+  private static routers: { private: Router[]; public: Router[] } = { private: [], public: [] };
   private constructor() {}
 
   public static registerRoute(router: Router, isPublic = false) {
-    this.routers[isPublic ? 'public' : 'private'].push(router);
+    this.routers[isPublic ? "public" : "private"].push(router);
   }
 
   public static init() {
@@ -24,6 +24,6 @@ export default class server {
   }
 
   private static attachRoutes(app: Application, routers: Router[] | RequestHandler[]) {
-    routers.forEach(router => app.use(router));
+    routers.forEach((router) => app.use(router));
   }
 }
