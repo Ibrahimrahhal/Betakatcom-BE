@@ -6,12 +6,12 @@ export default class TokensController {
 
   public static verify(BaearerToken: string): boolean {
     try {
-        const token = this.getTokenFromBearerToken(BaearerToken || "");
-        const decryptedToken = crypto.symmetricDecrypt(token);
-        jwt.verify(decryptedToken, this.jwtSecret);
-        return true;
+      const token = this.getTokenFromBearerToken(BaearerToken || "");
+      const decryptedToken = crypto.symmetricDecrypt(token);
+      jwt.verify(decryptedToken, this.jwtSecret);
+      return true;
     } catch (e) {
-        return false;
+      return false;
     }
   }
 
@@ -25,6 +25,6 @@ export default class TokensController {
   }
 
   private static get jwtSecret(): string {
-      return config.get("JWT_SECRET");
+    return config.get("JWT_SECRET");
   }
 }

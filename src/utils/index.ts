@@ -1,7 +1,7 @@
 import _error from "./error";
 import _config from "./config";
-import _crypto from './crypto';
-import _generic from './generic';
+import _crypto from "./crypto";
+import _generic from "./generic";
 
 export const config = _config;
 export const error = _error;

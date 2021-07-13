@@ -4,7 +4,7 @@ export default class error {
   public static throw(message: string) {
     throw new Error(message);
   }
-  
+
   public static report(error: Error) {
     console.error(error.message);
   }

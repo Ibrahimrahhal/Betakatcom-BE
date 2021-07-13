@@ -4,7 +4,7 @@ import { config } from "./utils";
 import { auth, error } from "./middlewares";
 export default class server {
   private static routers: { private: Router[]; public: Router[] } = { private: [], public: [] };
-  private static middlewares: (RequestHandler)[] = [];
+  private static middlewares: RequestHandler[] = [];
   private constructor() {}
 
   public static registerRoute(router: Router, isPublic = false) {
@@ -18,14 +18,13 @@ export default class server {
   public static init() {
     const port = config.get("PORT");
     const app: Application = express();
-    [ this.middlewares, this.routers.public, [auth], this.routers.private, [error] ]
-    .forEach(routers=>this.attachRoutes(app, routers));
+    [this.middlewares, this.routers.public, [auth], this.routers.private, [error]].forEach((routers) =>
+      this.attachRoutes(app, routers)
+    );
     app.listen(port, () => console.log(`Server is listening on port ${port}!`));
   }
 
   private static attachRoutes(app: Application, routers: (Router | RequestHandler | ErrorRequestHandler)[]) {
     routers.forEach((router) => app.use(router));
   }
-
-
 }
