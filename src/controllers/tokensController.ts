@@ -26,10 +26,6 @@ export default class TokensController {
     return (tokenParts && tokenParts[1]) || "";
   }
 
-  private static encryptToken(token: string): string {
-    return "";
-  }
-
   private static get jwtSecret(): string {
     return config.get("JWT_SECRET");
   }
