@@ -1,17 +1,17 @@
 import jwt from "jsonwebtoken";
-import { config } from "../utils/index";
+import { config, crypto } from "../utils/index";
 
 export default class TokensController {
   private constructor() {}
 
   public static verify(BaearerToken: string): boolean {
-    const jwtSecret = config.get("JWT_SECRET");
-    const token = this.getTokenFromBearerToken(BaearerToken || "");
     try {
-      jwt.verify(token, jwtSecret);
-      return true;
+        const token = this.getTokenFromBearerToken(BaearerToken || "");
+        const decryptedToken = crypto.symmetricDecrypt(token);
+        jwt.verify(decryptedToken, this.jwtSecret);
+        return true;
     } catch (e) {
-      return false;
+        return false;
     }
   }
 
@@ -22,5 +22,9 @@ export default class TokensController {
 
   private static encryptToken(token: string): string {
     return "";
+  }
+
+  private static get jwtSecret(): string {
+      return config.get("JWT_SECRET");
   }
 }
