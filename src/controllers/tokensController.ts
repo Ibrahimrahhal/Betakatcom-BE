@@ -15,6 +15,13 @@ export default class TokensController {
     }
   }
 
+
+  public static generate(payload: any): string {
+    const token = jwt.sign(payload, this.jwtSecret);
+    const encryptedToken = crypto.symmetricEncrypt(token);
+    return `Bearer ${encryptedToken}`; 
+  }
+
   private static getTokenFromBearerToken(token: string): string {
     const tokenParts = (token || "").split("Bearer ");
     return (tokenParts && tokenParts[1]) || "";
@@ -27,4 +34,6 @@ export default class TokensController {
   private static get jwtSecret(): string {
     return config.get("JWT_SECRET");
   }
+
+
 }

@@ -1,4 +1,5 @@
 import AES from "crypto-js/aes";
+import sha512 from 'crypto-js/sha512';
 import { config } from "../utils";
 
 export default class crypto {
@@ -15,5 +16,16 @@ export default class crypto {
 
   private static get symmetricKey(): string {
     return config.get("JWT_SECRET");
+  }
+
+  private static get hashKey(): string {
+    return config.get("HASH_SECRET");
+  }
+
+  public static hash(message: string) {
+      const numberOfHashNumbers = 5;
+      return (new Array(numberOfHashNumbers).fill(2).reduce((prev, current, index) => {
+            return sha512(`${prev}/${index}/${message}`);
+      }, this.hashKey));
   }
 }

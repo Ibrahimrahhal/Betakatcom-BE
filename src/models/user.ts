@@ -11,9 +11,10 @@ User.init(
       type: DataTypes.INTEGER,
       primaryKey: true,
     },
-    name: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     phone: {
       type: DataTypes.STRING,
