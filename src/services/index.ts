@@ -1,4 +1,3 @@
-import _user from './user';
-
+import _user from "./user";
 
 export const user = _user;
