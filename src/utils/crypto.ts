@@ -22,10 +22,10 @@ export default class crypto {
     return config.get("HASH_SECRET");
   }
 
-  public static hash(message: string) {
+  public static hash(message: string): string {
     const numberOfHashNumbers = 5;
-    return new Array(numberOfHashNumbers).fill(2).reduce((prev, current, index) => {
-      return sha512(`${prev}/${index}/${message}`);
+    return new Array(numberOfHashNumbers).fill(2).reduce((prev: string, current, index: number) => {
+      return sha512(`${prev}/${index}/${message}`).toString();
     }, this.hashKey);
   }
 }

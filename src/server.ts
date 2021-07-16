@@ -1,7 +1,7 @@
 import express, { Application, ErrorRequestHandler, Router, RequestHandler } from "express";
-
 import { config } from "./utils";
 import { auth, error } from "./middlewares";
+
 export default class server {
   private static routers: { private: Router[]; public: Router[] } = { private: [], public: [] };
   private static middlewares: RequestHandler[] = [];

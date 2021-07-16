@@ -2,8 +2,18 @@ import { Model, DataTypes, Sequelize } from "sequelize";
 import SequelizeInstance from "./connection";
 import UserType from "./userType";
 import Wallet from "./wallet";
-
-class User extends Model {}
+import { crypto } from '../utils';
+class User extends Model {
+  getAsJson() {
+    const user: any = this.toJSON();;
+    delete user.password;
+    return user;
+  }
+  verifyPass(password: string): boolean {
+    const currentPassword = this.get("password");
+    return crypto.hash(password) === currentPassword;
+  }
+}
 
 User.init(
   {
@@ -24,6 +34,10 @@ User.init(
     },
     token: {
       type: DataTypes.STRING,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     type: {
       type: DataTypes.INTEGER,
