@@ -10,13 +10,13 @@ export default class generic {
   }
 
   public static asyncRouteErrorHandlerWrapper(handler: RequestHandler): RequestHandler {
-      return (req: Request, res: Response, next: NextFunction): void => {
-            const returned: any = handler(req, res, next);
-            if(returned instanceof Promise) {
-                returned.catch((err) => {
-                    next(err);
-                });
-            }
+    return (req: Request, res: Response, next: NextFunction): void => {
+      const returned: any = handler(req, res, next);
+      if (returned instanceof Promise) {
+        returned.catch((err) => {
+          next(err);
+        });
       }
+    };
   }
 }

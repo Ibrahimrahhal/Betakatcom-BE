@@ -2,10 +2,10 @@ import { Model, DataTypes, Sequelize } from "sequelize";
 import SequelizeInstance from "./connection";
 import UserType from "./userType";
 import Wallet from "./wallet";
-import { crypto } from '../utils';
+import { crypto } from "../utils";
 class User extends Model {
   getAsJson() {
-    const user: any = this.toJSON();;
+    const user: any = this.toJSON();
     delete user.password;
     return user;
   }

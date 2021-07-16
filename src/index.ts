@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 
 import Server from "./server";
 import { json } from "body-parser";
-import { encryption, decryption } from './middlewares';
-import { PrivateRoutes, PublicRoutes } from './routes';
+import { encryption, decryption } from "./middlewares";
+import { PrivateRoutes, PublicRoutes } from "./routes";
 
 import "./models";
 
@@ -14,8 +14,8 @@ Server.registerMiddleware(encryption);
 Server.registerMiddleware(decryption);
 
 //registering routes
-PublicRoutes.forEach(route => Server.registerRoute(route, true));
-PrivateRoutes.forEach(route => Server.registerRoute(route, false));
+PublicRoutes.forEach((route) => Server.registerRoute(route, true));
+PrivateRoutes.forEach((route) => Server.registerRoute(route, false));
 
 //init
 Server.init();
