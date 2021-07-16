@@ -1,16 +1,21 @@
-import express, { Application, Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 /* loading .env file */ dotenv.config();
-import "./models/index";
 
-// Boot express
-const app: Application = express();
-const port = 5000;
+import Server from "./server";
+import { json } from "body-parser";
+import { encryption, decryption } from "./middlewares";
+import { PrivateRoutes, PublicRoutes } from "./routes";
 
-// Application routing
-app.use("/", (req: Request, res: Response, next: NextFunction) => {
-  res.status(200).send({ data: "Hello from Ornio AS" });
-});
+import "./models";
 
-// Start server
-app.listen(port, () => console.log(`Server is listening on port ${port}!`));
+//registering middlewares
+Server.registerMiddleware(json({ limit: "1mb" }));
+Server.registerMiddleware(encryption);
+Server.registerMiddleware(decryption);
+
+//registering routes
+PublicRoutes.forEach((route) => Server.registerRoute(route, true));
+PrivateRoutes.forEach((route) => Server.registerRoute(route, false));
+
+//init
+Server.init();
