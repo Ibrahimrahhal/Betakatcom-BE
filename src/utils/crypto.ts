@@ -1,5 +1,5 @@
 import AES from "crypto-js/aes";
-import { enc } from 'crypto-js';
+import { enc } from "crypto-js";
 import sha512 from "crypto-js/sha512";
 import { config } from "../utils";
 

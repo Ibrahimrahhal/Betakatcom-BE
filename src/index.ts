@@ -5,7 +5,7 @@ import Server from "./server";
 import { json } from "body-parser";
 import { encryption, decryption } from "./middlewares";
 import { PrivateRoutes, PublicRoutes } from "./routes";
-import cors from 'cors';
+import cors from "cors";
 
 import "./models";
 
