@@ -1,4 +1,5 @@
 import AES from "crypto-js/aes";
+import { enc } from 'crypto-js';
 import sha512 from "crypto-js/sha512";
 import { config } from "../utils";
 
@@ -11,11 +12,11 @@ export default class crypto {
   }
 
   public static symmetricDecrypt(message: string) {
-    return JSON.parse(AES.decrypt(message, this.symmetricKey).toString());
+    return JSON.parse(AES.decrypt(message, this.symmetricKey).toString(enc.Utf8));
   }
 
   private static get symmetricKey(): string {
-    return config.get("JWT_SECRET");
+    return config.get("AES_SECRET");
   }
 
   private static get hashKey(): string {
