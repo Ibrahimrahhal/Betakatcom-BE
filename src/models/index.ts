@@ -11,6 +11,7 @@ import _NotificationType from "./notificationType";
 import _Wallet from "./wallet";
 
 import Connection from "./connection";
+import { Sync } from "./staticData";
 
 export const User = _User;
 export const UserType = _UserType;
@@ -27,4 +28,4 @@ export const NotificationType = _NotificationType;
 
 export const Wallet = _Wallet;
 
-Connection.sync();
+Connection.sync().then(() => Sync());

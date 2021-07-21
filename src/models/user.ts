@@ -13,6 +13,16 @@ class User extends Model {
     const currentPassword = this.get("password");
     return crypto.hash(password) === currentPassword;
   }
+
+  isAdmin() {
+    const adminId = UserType.adminId;
+    return this.get("type") == adminId;
+  }
+
+  isSeller() {
+    const sellerId = UserType.sellerId;
+    return this.get("type") == sellerId;
+  }
 }
 
 User.init(
