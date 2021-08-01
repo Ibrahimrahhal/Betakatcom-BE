@@ -8,4 +8,14 @@ export default class UserController {
       where: { id: UserType.sellerId },
     });
   }
+
+  public static update(user: any) {
+    return User.update(user, {
+      where: { id: user.id },
+    });
+  }
+
+  public static create(user: any) {
+    return User.create(user);
+  }
 }

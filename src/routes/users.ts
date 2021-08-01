@@ -14,4 +14,26 @@ app.get(
     })
   )
 );
+
+app.put(
+  "/seller",
+  generic.adminOnlyRouteWrapper(
+    generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
+      const seller = req.body;
+      await userController.update(seller);
+      res.json({});
+    })
+  )
+);
+
+app.post(
+  "/seller",
+  generic.adminOnlyRouteWrapper(
+    generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
+      const seller = req.body;
+      const user = await userController.create(seller);
+      res.json(user.getAsJson());
+    })
+  )
+);
 export default generic.encapsulateRouter(app, "/users");
