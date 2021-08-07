@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { generic } from "../utils";
 import { userController } from "../controllers";
-import { UserType } from '../models';
+import { UserType } from "../models";
 import { HTTP_RESPONSES } from "../utils/constants";
 const app = Router({ mergeParams: true });
 
@@ -42,7 +42,7 @@ app.delete(
   generic.adminOnlyRouteWrapper(
     generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
       const { id } = req.query;
-      if(!id) {
+      if (!id) {
         res.sendStatus(HTTP_RESPONSES.BAD_REQUEST);
         return;
       }

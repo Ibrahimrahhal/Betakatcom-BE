@@ -16,12 +16,15 @@ export default class UserController {
   }
 
   public static create(user: any, type: number) {
-    return User.create({...user, type});
+    return User.create({ ...user, type });
   }
 
   public static delete(id: string) {
-    return User.update({deletedOn: Date.now()}, {
-      where: { id },
-    });
+    return User.update(
+      { deletedOn: Date.now() },
+      {
+        where: { id },
+      }
+    );
   }
 }
