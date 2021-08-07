@@ -4,7 +4,8 @@
   "description": "Backend services for betakatcom app, phone recharge cards managment system",
   "main": "src/index.ts",
   "scripts": {
-    "start": "nodemon",
+    "start": "bash ./scripts/start.sh",
+    "dev": "nodemon",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --config .prettierrc.json --write src/**/*.ts",

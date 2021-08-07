@@ -13,6 +13,16 @@ class User extends Model {
     const currentPassword = this.get("password");
     return crypto.hash(password) === currentPassword;
   }
+
+  isAdmin() {
+    const adminId = UserType.adminId;
+    return this.get("type") == adminId;
+  }
+
+  isSeller() {
+    const sellerId = UserType.sellerId;
+    return this.get("type") == sellerId;
+  }
 }
 
 User.init(
@@ -20,6 +30,7 @@ User.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     username: {
       type: DataTypes.STRING,
@@ -59,6 +70,10 @@ User.init(
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: Sequelize.fn("now"),
+    },
+    deletedOn: {
+      type: DataTypes.DATE,
+      allowNull: true,
     },
   },
   {

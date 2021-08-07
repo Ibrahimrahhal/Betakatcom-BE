@@ -11,7 +11,7 @@ export default function (req: Request, res: Response, next: NextFunction): void 
       return;
     }
   } else {
-    req.body = req.body.data;
+    if (req.body) req.body = req.body.data;
   }
   next();
 }

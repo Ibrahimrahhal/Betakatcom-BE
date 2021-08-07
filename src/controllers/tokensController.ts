@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { config, crypto } from "../utils/index";
 
 export default class TokensController {
@@ -8,7 +8,7 @@ export default class TokensController {
     try {
       const token = this.getTokenFromBearerToken(BaearerToken || "");
       const decryptedToken = crypto.symmetricDecrypt(token);
-      jwt.verify(decryptedToken, this.jwtSecret);
+      jwt.verify(decryptedToken.data, this.jwtSecret);
       return true;
     } catch (e) {
       return false;
@@ -28,5 +28,11 @@ export default class TokensController {
 
   private static get jwtSecret(): string {
     return config.get("JWT_SECRET");
+  }
+
+  public static decode(BaearerToken: string): JwtPayload {
+    const token = this.getTokenFromBearerToken(BaearerToken || "");
+    const decryptedToken = crypto.symmetricDecrypt(token);
+    return jwt.decode(decryptedToken.data) as JwtPayload;
   }
 }
