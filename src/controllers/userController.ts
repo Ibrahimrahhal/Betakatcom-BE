@@ -5,7 +5,7 @@ export default class UserController {
 
   public static getSellers() {
     return User.findAll({
-      where: { id: UserType.sellerId },
+      where: { type: UserType.sellerId, deletedOn: null },
     });
   }
 
@@ -15,7 +15,13 @@ export default class UserController {
     });
   }
 
-  public static create(user: any) {
-    return User.create(user);
+  public static create(user: any, type: number) {
+    return User.create({...user, type});
+  }
+
+  public static delete(id: string) {
+    return User.update({deletedOn: Date.now()}, {
+      where: { id },
+    });
   }
 }

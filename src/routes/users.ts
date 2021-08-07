@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { generic } from "../utils";
-import { HTTP_RESPONSES } from "../utils/constants";
 import { userController } from "../controllers";
-
+import { UserType } from '../models';
+import { HTTP_RESPONSES } from "../utils/constants";
 const app = Router({ mergeParams: true });
 
 app.get(
@@ -31,9 +31,25 @@ app.post(
   generic.adminOnlyRouteWrapper(
     generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
       const seller = req.body;
-      const user = await userController.create(seller);
+      const user = await userController.create(seller, UserType.sellerId);
       res.json(user.getAsJson());
     })
   )
 );
+
+app.delete(
+  "/seller",
+  generic.adminOnlyRouteWrapper(
+    generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
+      const { id } = req.query;
+      if(!id) {
+        res.sendStatus(HTTP_RESPONSES.BAD_REQUEST);
+        return;
+      }
+      await userController.delete(id as string);
+      res.json({});
+    })
+  )
+);
+
 export default generic.encapsulateRouter(app, "/users");

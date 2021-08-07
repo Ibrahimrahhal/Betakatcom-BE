@@ -30,6 +30,7 @@ User.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true
     },
     username: {
       type: DataTypes.STRING,
@@ -69,6 +70,10 @@ User.init(
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: Sequelize.fn("now"),
+    },
+    deletedOn: {
+      type: DataTypes.DATE,
+      allowNull: true,
     },
   },
   {
