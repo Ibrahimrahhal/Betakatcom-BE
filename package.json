@@ -5,6 +5,8 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "bash ./scripts/start.sh",
+    "start:db": "bash ./scripts/start-db.sh",
+    "migrate:dev": "bash ./scripts/migrate-db.sh",
     "dev": "nodemon",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
