@@ -18,6 +18,6 @@ containerID=$(docker ps -aqf "name=$container_name")
 if [ -z "$containerID" ]; then
     docker run -d --name $container_name -v $volume_name:/var/lib/mysql -p $db_port:$db_port $image_name:$image_tag
 else
-    docker start -a $container_name
+    docker start $container_name
 fi
 
