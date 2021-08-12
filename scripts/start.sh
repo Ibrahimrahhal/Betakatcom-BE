@@ -13,7 +13,7 @@ fi
 containerID=$(docker ps -aqf "name=$container_name")
 
 if [ -z "$containerID" ]; then
-    docker run --name $container_name -v "$(pwd)":/app -p $listen_port:$listen_port $image_name:$image_tag
+    docker run -d --name $container_name -v "$(pwd)":/app -p $listen_port:$listen_port $image_name:$image_tag
 else
     docker start -a $container_name
 fi
