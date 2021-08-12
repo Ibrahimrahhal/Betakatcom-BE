@@ -27,4 +27,8 @@ export default class UserController {
       }
     );
   }
+
+  public static get(username: string) {
+    return User.findOne({ where: { username } });
+  }
 }
