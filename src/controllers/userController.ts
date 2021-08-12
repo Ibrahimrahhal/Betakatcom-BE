@@ -9,6 +9,13 @@ export default class UserController {
     });
   }
 
+
+  public static getSellingPoints() {
+    return User.findAll({
+      where: { type: UserType.sellingPointId, deletedOn: null },
+    });
+  }
+
   public static update(user: any) {
     return User.update(user, {
       where: { id: user.id },
