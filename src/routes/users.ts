@@ -52,4 +52,57 @@ app.delete(
   )
 );
 
+
+
+app.get(
+  "/selling-points",
+  generic.adminOnlyRouteWrapper(
+    generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
+      const sellingPoints = await userController.getSellingPoints();
+      res.json(sellingPoints.map((sellingPoint) => sellingPoint.getAsJson()));
+    })
+  )
+);
+
+
+app.put(
+  "/selling-point",
+  generic.adminOnlyRouteWrapper(
+    generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
+      const sellingPoint = req.body;
+      await userController.update(sellingPoint);
+      res.json({});
+    })
+  )
+);
+
+app.post(
+  "/selling-point",
+  generic.adminOnlyRouteWrapper(
+    generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
+      const sellingPoint = req.body;
+      const user = await userController.create(sellingPoint, UserType.sellerId);
+      res.json(user.getAsJson());
+    })
+  )
+);
+
+app.delete(
+  "/selling-point",
+  generic.adminOnlyRouteWrapper(
+    generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
+      const { id } = req.query;
+      if (!id) {
+        res.sendStatus(HTTP_RESPONSES.BAD_REQUEST);
+        return;
+      }
+      await userController.delete(id as string);
+      res.json({});
+    })
+  )
+);
+
+
+
+
 export default generic.encapsulateRouter(app, "/users");
