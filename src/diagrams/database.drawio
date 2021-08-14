@@ -1,6 +1,6 @@
-<mxfile>
+<mxfile host="65bd71144e">
     <diagram id="LrKRrKTN13Jg255d45Nv" name="Page-1">
-        <mxGraphModel dx="258" dy="438" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="692" dy="713" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -76,32 +76,6 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="s4tusYUxzzBqLr3-l9wo-15" value="Card_Purchase" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=0;" parent="1" vertex="1">
-                    <mxGeometry x="710" y="180" width="160" height="120" as="geometry">
-                        <mxRectangle x="40" y="90" width="60" height="30" as="alternateBounds"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="s4tusYUxzzBqLr3-l9wo-16" value="id: Int [PK]&#10;card: int [FK]&#10;customer: int [FK]&#10;createdOn: date" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="s4tusYUxzzBqLr3-l9wo-15" vertex="1">
-                    <mxGeometry y="30" width="160" height="90" as="geometry"/>
-                </mxCell>
-                <mxCell id="s4tusYUxzzBqLr3-l9wo-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.125;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;" parent="1" source="s4tusYUxzzBqLr3-l9wo-16" target="s4tusYUxzzBqLr3-l9wo-2" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <Array as="points">
-                            <mxPoint x="710" y="240"/>
-                            <mxPoint x="330" y="240"/>
-                            <mxPoint x="330" y="110"/>
-                        </Array>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="s4tusYUxzzBqLr3-l9wo-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" parent="1" source="s4tusYUxzzBqLr3-l9wo-16" target="s4tusYUxzzBqLr3-l9wo-7" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <Array as="points">
-                            <mxPoint x="710" y="250"/>
-                            <mxPoint x="104" y="250"/>
-                            <mxPoint x="104" y="385"/>
-                        </Array>
-                    </mxGeometry>
-                </mxCell>
                 <mxCell id="s4tusYUxzzBqLr3-l9wo-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.013;exitY=0.618;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="s4tusYUxzzBqLr3-l9wo-21" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="120" y="380" as="targetPoint"/>
@@ -121,7 +95,7 @@
                         <mxRectangle x="40" y="90" width="60" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="s4tusYUxzzBqLr3-l9wo-21" value="id: Int [PK]&#10;type: int [FK]&#10;purchase: int [FK]&#10;amount: double&#10;createdBy: int [FK]&#10;userEffected: int [FK]&#10;createdOn: date" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="s4tusYUxzzBqLr3-l9wo-20" vertex="1">
+                <mxCell id="s4tusYUxzzBqLr3-l9wo-21" value="id: Int [PK]&#10;type: int [FK]&#10;purchase: int [FK]&#10;amount: double&#10;createdBy: int [FK]&#10;userEffected: int [FK]&#10;card: int [FK]&#10;createdOn: date" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="s4tusYUxzzBqLr3-l9wo-20" vertex="1">
                     <mxGeometry y="30" width="160" height="136" as="geometry"/>
                 </mxCell>
                 <mxCell id="s4tusYUxzzBqLr3-l9wo-22" value="Transaction_Type" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=0;" parent="1" vertex="1">
@@ -131,17 +105,6 @@
                 </mxCell>
                 <mxCell id="s4tusYUxzzBqLr3-l9wo-23" value="id: Int [PK]&#10;name: varchar" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" parent="s4tusYUxzzBqLr3-l9wo-22" vertex="1">
                     <mxGeometry y="30" width="160" height="43" as="geometry"/>
-                </mxCell>
-                <mxCell id="s4tusYUxzzBqLr3-l9wo-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.006;entryY=0.156;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="s4tusYUxzzBqLr3-l9wo-16" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="709" y="460" as="sourcePoint"/>
-                        <Array as="points">
-                            <mxPoint x="650" y="465"/>
-                            <mxPoint x="650" y="360"/>
-                            <mxPoint x="690" y="360"/>
-                            <mxPoint x="690" y="224"/>
-                        </Array>
-                    </mxGeometry>
                 </mxCell>
                 <mxCell id="s4tusYUxzzBqLr3-l9wo-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="s4tusYUxzzBqLr3-l9wo-21" target="s4tusYUxzzBqLr3-l9wo-22" edge="1">
                     <mxGeometry relative="1" as="geometry">
@@ -195,6 +158,16 @@
                         <Array as="points">
                             <mxPoint x="50" y="600"/>
                             <mxPoint x="50" y="380"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.006;entryY=0.15;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="s4tusYUxzzBqLr3-l9wo-21" target="s4tusYUxzzBqLr3-l9wo-2">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="670" y="520"/>
+                            <mxPoint x="670" y="250"/>
+                            <mxPoint x="330" y="250"/>
+                            <mxPoint x="330" y="112"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>

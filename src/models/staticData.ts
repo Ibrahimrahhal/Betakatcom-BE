@@ -1,12 +1,16 @@
 import UserType from "./userType";
+import TranscationType from "./transactionType";
 
 export const Sync = () => {
-  UserType.types.forEach(async (type) => {
-    await UserType.findOrCreate({
-      where: { id: type.get("id") },
-      defaults: {
-        ...type.toJSON(),
-      },
+  const modalToSync = [UserType, TranscationType];
+  modalToSync.forEach((modal) => {
+    modal.types.forEach(async (type) => {
+      await modal.findOrCreate({
+        where: { id: type.get("id") },
+        defaults: {
+          ...type.toJSON(),
+        },
+      });
     });
-  });
+  })
 };
