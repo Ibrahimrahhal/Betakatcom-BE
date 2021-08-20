@@ -1,18 +1,18 @@
 import { Transaction as DbTransaction, where, col } from "sequelize";
 import Card from "../models/card";
-import CardType from "../models/cardType";
 import Transaction from "../models/transaction";
 import TranscationType from "../models/transactionType";
 import connection from "../models/connection";
 import WalletController from "./WalletController";
 import UserController from "./userController";
+import CardTypeController from "./cardTypeController";
 
 export default class TransactionController {
   private constructor() {}
 
   public static purchaseCard(userId: number, cardType: number, walletId: number): Promise<Card> {
     return connection.transaction(async (t: DbTransaction) => {
-      const _cardType = await CardType.findOne({ where: { id: cardType } });
+      const _cardType = await CardTypeController.get(cardType);
       if (!_cardType) throw new Error("Unknown Card Type");
       const cards = await Card.findAll({
         include: [
