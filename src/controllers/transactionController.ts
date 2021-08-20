@@ -1,0 +1,57 @@
+import { Transaction as DbTransaction, where, col } from "sequelize";
+import Card from "../models/card";
+import CardType from "../models/cardType";
+import Transaction from "../models/transaction";
+import TranscationType from "../models/transactionType";
+import connection from "../models/connection";
+import WalletController from "./WalletController";
+import UserController from "./userController";
+
+export default class TransactionController {
+  private constructor() {}
+
+  public static purchaseCard(userId: number, cardType: number, walletId: number): Promise<Card> {
+    return connection.transaction(async (t: DbTransaction) => {
+      const _cardType = await CardType.findOne({ where: { id: cardType } });
+      if (!_cardType) throw new Error("Unknown Card Type");
+      const cards = await Card.findAll({
+        include: [
+          {
+            model: Transaction,
+            required: false,
+          },
+        ],
+        where: where(col("Transaction.card"), "IS", null),
+        limit: 1,
+        transaction: t,
+      });
+      if (cards.length === 0) throw new Error("No Cards Found");
+      const selectedCard = cards[0];
+      await Transaction.create({
+        type: TranscationType.cardPurchase,
+        amount: -1 * (_cardType.get("price") as number),
+        card: selectedCard.get("id"),
+        createdBy: userId,
+        userEffected: userId,
+        transaction: t,
+      });
+      await WalletController.decrement(walletId, selectedCard.get("price") as number, t);
+      return selectedCard;
+    });
+  }
+
+  public static increaseBallance(userId: number, userIdToIncrease: number, amount: number): Promise<void> {
+    return connection.transaction(async (t: DbTransaction) => {
+      const userToIncreament = await UserController.getById(userIdToIncrease, t);
+      if (!userToIncreament) throw new Error("User Not Found");
+      await Transaction.create({
+        type: TranscationType.creditPurchase,
+        amount: amount,
+        createdBy: userId,
+        userEffected: userIdToIncrease,
+        transaction: t,
+      });
+      await WalletController.increment(userToIncreament.get("wallet") as number, amount, t);
+    });
+  }
+}

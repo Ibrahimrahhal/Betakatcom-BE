@@ -8,10 +8,10 @@ Wallet.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     balance: {
-      type: DataTypes.DOUBLE,
+      type: DataTypes.DOUBLE.UNSIGNED,
       allowNull: false,
       defaultValue: 0,
     },

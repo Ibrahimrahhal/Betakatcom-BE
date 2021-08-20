@@ -2,7 +2,6 @@ import { Model, DataTypes } from "sequelize";
 import SequelizeInstance from "./connection";
 
 class TransactionType extends Model {
-  
   static get types(): TransactionType[] {
     return [
       { id: this.creditPurchase, name: "Credit Purchase" },
@@ -17,7 +16,6 @@ class TransactionType extends Model {
   static get cardPurchase(): number {
     return 2;
   }
-
 }
 
 TransactionType.init(

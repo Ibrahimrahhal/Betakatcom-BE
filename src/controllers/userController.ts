@@ -1,6 +1,7 @@
-import UserType from '../models/userType';
-import User from '../models/user';
-import Wallet from './WalletController';
+import { Transaction } from "sequelize";
+import UserType from "../models/userType";
+import User from "../models/user";
+import Wallet from "./WalletController";
 
 export default class UserController {
   private constructor() {}
@@ -10,7 +11,6 @@ export default class UserController {
       where: { type: UserType.sellerId, deletedOn: null },
     });
   }
-
 
   public static getSellingPoints(): Promise<User[]> {
     return User.findAll({
@@ -25,9 +25,9 @@ export default class UserController {
   }
 
   public static async create(user: any, type: number, intialBalance: number = 0): Promise<User> {
-    if(type === UserType.sellingPointId) {
+    if (type === UserType.sellingPointId) {
       const wallet = await Wallet.create(intialBalance);
-      user.wallet = wallet.get('id');
+      user.wallet = wallet.get("id");
     }
     return await User.create({ ...user, type });
   }
@@ -41,7 +41,11 @@ export default class UserController {
     );
   }
 
-  public static get(username: string): Promise<User|null> {
+  public static get(username: string): Promise<User | null> {
     return User.findOne({ where: { username } });
+  }
+
+  public static getById(id: number, transaction?: Transaction): Promise<User | null> {
+    return User.findOne({ where: { id } });
   }
 }

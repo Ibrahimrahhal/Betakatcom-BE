@@ -52,8 +52,6 @@ app.delete(
   )
 );
 
-
-
 app.get(
   "/selling-points",
   generic.adminOnlyRouteWrapper(
@@ -63,7 +61,6 @@ app.get(
     })
   )
 );
-
 
 app.put(
   "/selling-point",
@@ -101,8 +98,5 @@ app.delete(
     })
   )
 );
-
-
-
 
 export default generic.encapsulateRouter(app, "/users");

@@ -4,13 +4,14 @@ import TransactionType from "./transactionType";
 import Card from "./card";
 import User from "./user";
 
-class Transaction extends Model { }
+class Transaction extends Model {}
 
 Transaction.init(
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     type: {
       type: DataTypes.INTEGER,
