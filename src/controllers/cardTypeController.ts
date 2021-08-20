@@ -9,7 +9,9 @@ export default class CardTypeController {
   public static async get(id: number): Promise<CardType | null> {
     return await CardType.findOne({ where: { id: id } });
   }
-
+  public static async getAll(): Promise<CardType[]> {
+    return await CardType.findAll();
+  }
   public static async update(card: any): Promise<void> {
     await CardType.update(card, { where: { id: card.id } });
   }
