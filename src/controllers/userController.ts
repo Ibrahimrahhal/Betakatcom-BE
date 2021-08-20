@@ -14,14 +14,13 @@ export default class UserController {
 
   public static getSellingPoints(createdBy?: number): Promise<User[]> {
     return User.findAll({
-      where: { 
+      where: {
         type: UserType.sellingPointId,
         createdBy,
-        deletedOn: null 
+        deletedOn: null,
       },
     });
   }
-
 
   public static update(user: any) {
     return User.update(user, {

@@ -58,7 +58,6 @@ app.delete(
   )
 );
 
-
 app.get(
   "/selling-points",
   generic.roleBasedRouteWrapper(
