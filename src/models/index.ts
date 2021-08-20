@@ -2,7 +2,6 @@ import _User from "./user";
 import _UserType from "./userType";
 import _Card from "./card";
 import _CardType from "./cardType";
-import _CardPurchase from "./cardPurchase";
 import _Transaction from "./transaction";
 import _TransactionType from "./transactionType";
 import _Notification from "./notification";
@@ -18,7 +17,6 @@ export const UserType = _UserType;
 
 export const Card = _Card;
 export const CardType = _CardType;
-export const CardPurchase = _CardPurchase;
 
 export const Transaction = _Transaction;
 export const TransactionType = _TransactionType;

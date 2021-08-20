@@ -1,7 +1,7 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
 import SequelizeInstance from "./connection";
 import TransactionType from "./transactionType";
-import CardPurchase from "./cardPurchase";
+import Card from "./card";
 import User from "./user";
 
 class Transaction extends Model {}
@@ -11,19 +11,13 @@ Transaction.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     type: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: TransactionType,
-        key: "id",
-      },
-    },
-    purchase: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: CardPurchase,
         key: "id",
       },
     },
@@ -36,6 +30,15 @@ Transaction.init(
       allowNull: false,
       references: {
         model: User,
+        key: "id",
+      },
+    },
+    card: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      unique: true,
+      references: {
+        model: Card,
         key: "id",
       },
     },

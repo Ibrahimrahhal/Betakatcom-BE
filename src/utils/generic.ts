@@ -30,4 +30,24 @@ export default class generic {
       handler(req, res, next);
     };
   }
+
+  public static sellerOnlyRouteWrapper(handler: RequestHandler): RequestHandler {
+    return (req: Request, res: Response, next: NextFunction): void => {
+      if (!(req as any).user.isSeller()) {
+        res.sendStatus(HTTP_RESPONSES.UNAUTHORIZED);
+        return;
+      }
+      handler(req, res, next);
+    };
+  }
+
+  public static sellingPointOnlyRouteWrapper(handler: RequestHandler): RequestHandler {
+    return (req: Request, res: Response, next: NextFunction): void => {
+      if (!(req as any).user.isSeller()) {
+        res.sendStatus(HTTP_RESPONSES.UNAUTHORIZED);
+        return;
+      }
+      handler(req, res, next);
+    };
+  }
 }

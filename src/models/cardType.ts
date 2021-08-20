@@ -13,6 +13,13 @@ CardType.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    type: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: CardType,
+        key: "id",
+      },
+    },
     nameEnglish: {
       type: DataTypes.STRING,
       allowNull: false,

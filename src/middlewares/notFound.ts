@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
+import { HTTP_RESPONSES } from "../utils/constants";
 
 export default function (req: Request, res: Response, next: NextFunction): void {
-  res.sendStatus(404);
+  res.sendStatus(HTTP_RESPONSES.NOT_FOUND);
 }

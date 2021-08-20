@@ -9,6 +9,5 @@ export default function (req: Request, res: Response, next: NextFunction): void 
     res.json = oldSend;
     return res.json({ data: ecryptedData });
   };
-
   next();
 }
