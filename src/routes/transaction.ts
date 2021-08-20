@@ -36,4 +36,17 @@ app.post(
   )
 );
 
+app.post(
+  "/ballance/pay",
+  generic.roleBasedRouteWrapper(
+    UserType.adminId,
+    generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
+      const { user } = req as any;
+      const { user: userToIncreament, amount } = req.body;
+      await TransactionController.payBallance(user.id, userToIncreament.id, parseFloat(amount));
+      res.json({});
+    })
+  )
+);
+
 export default generic.encapsulateRouter(app, "/transaction");
