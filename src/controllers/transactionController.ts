@@ -40,7 +40,12 @@ export default class TransactionController {
     });
   }
 
-  public static increaseBallance(userId: number, userIdToIncrease: number, amount: number): Promise<void> {
+  public static increaseBallance(
+    userId: number,
+    userWalletId: number,
+    userIdToIncrease: number,
+    amount: number
+  ): Promise<void> {
     return connection.transaction(async (t: DbTransaction) => {
       const userToIncreament = await UserController.getById(userIdToIncrease, t);
       if (!userToIncreament) throw new Error("User Not Found");
@@ -51,7 +56,30 @@ export default class TransactionController {
         userEffected: userIdToIncrease,
         transaction: t,
       });
+      await Transaction.create({
+        type: TranscationType.creditSelling,
+        amount: amount,
+        createdBy: userId,
+        userEffected: userId,
+        transaction: t,
+      });
       await WalletController.increment(userToIncreament.get("wallet") as number, amount, t);
+      await WalletController.increment(userWalletId, amount, t);
+    });
+  }
+
+  public static payBallance(userId: number, PayingUserId: number, amount: number): Promise<void> {
+    return connection.transaction(async (t: DbTransaction) => {
+      const userToIncreament = await UserController.getById(PayingUserId, t);
+      if (!userToIncreament) throw new Error("User Not Found");
+      await Transaction.create({
+        type: TranscationType.ballancePay,
+        amount: -1 * amount,
+        createdBy: userId,
+        userEffected: PayingUserId,
+        transaction: t,
+      });
+      await WalletController.decrement(PayingUserId, amount, t);
     });
   }
 }

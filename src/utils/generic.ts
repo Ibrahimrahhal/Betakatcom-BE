@@ -21,29 +21,11 @@ export default class generic {
     };
   }
 
-  public static adminOnlyRouteWrapper(handler: RequestHandler): RequestHandler {
+  public static roleBasedRouteWrapper(userType: number | number[], handler: RequestHandler): RequestHandler {
     return (req: Request, res: Response, next: NextFunction): void => {
-      if (!(req as any).user.isAdmin()) {
-        res.sendStatus(HTTP_RESPONSES.UNAUTHORIZED);
-        return;
-      }
-      handler(req, res, next);
-    };
-  }
-
-  public static sellerOnlyRouteWrapper(handler: RequestHandler): RequestHandler {
-    return (req: Request, res: Response, next: NextFunction): void => {
-      if (!(req as any).user.isSeller()) {
-        res.sendStatus(HTTP_RESPONSES.UNAUTHORIZED);
-        return;
-      }
-      handler(req, res, next);
-    };
-  }
-
-  public static sellingPointOnlyRouteWrapper(handler: RequestHandler): RequestHandler {
-    return (req: Request, res: Response, next: NextFunction): void => {
-      if (!(req as any).user.isSeller()) {
+      const user = req as any;
+      const userTypes = userType instanceof Array ? userType : [userType];
+      if (!userTypes.includes(user.type)) {
         res.sendStatus(HTTP_RESPONSES.UNAUTHORIZED);
         return;
       }

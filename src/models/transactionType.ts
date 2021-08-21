@@ -6,6 +6,8 @@ class TransactionType extends Model {
     return [
       { id: this.creditPurchase, name: "Credit Purchase" },
       { id: this.cardPurchase, name: "Card Purchase" },
+      { id: this.creditSelling, name: "Credit Selling" },
+      { id: this.ballancePay, name: "Ballance Pay" },
     ].map((type) => new TransactionType(type));
   }
 
@@ -15,6 +17,14 @@ class TransactionType extends Model {
 
   static get cardPurchase(): number {
     return 2;
+  }
+
+  static get creditSelling(): number {
+    return 3;
+  }
+
+  static get ballancePay(): number {
+    return 4;
   }
 }
 

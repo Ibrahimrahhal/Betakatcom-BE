@@ -66,6 +66,13 @@ User.init(
         key: "id",
       },
     },
+    createdBy: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: User,
+        key: "id",
+      },
+    },
     createdOn: {
       type: DataTypes.DATE,
       allowNull: false,

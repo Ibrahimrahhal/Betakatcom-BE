@@ -3,6 +3,7 @@ import users from "./users";
 import authentication from "./authentication";
 import transaction from "./transaction";
 import cardType from "./cardType";
+import card from "./card";
 
-export const PrivateRoutes = [user, users, transaction, cardType];
+export const PrivateRoutes = [user, users, transaction, cardType, card];
 export const PublicRoutes = [authentication];
