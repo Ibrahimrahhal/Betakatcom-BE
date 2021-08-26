@@ -1,7 +1,7 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
 import SequelizeInstance from "./connection";
 import CardType from "./cardType";
-
+import Transaction from "./transaction";
 class Card extends Model {}
 
 Card.init(
@@ -9,6 +9,7 @@ Card.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true
     },
     code: {
       type: DataTypes.STRING,
@@ -35,4 +36,7 @@ Card.init(
   }
 );
 
+Card.hasOne(Transaction, {
+  foreignKey: 'card'
+});
 export default Card;

@@ -12,8 +12,8 @@ app.post(
     generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
       const { user } = req as any;
       const { type } = req.body;
-      await TransactionController.purchaseCard(user.id, parseInt(type), user.wallet);
-      res.json({});
+      const card = await TransactionController.purchaseCard(user.id, parseInt(type), user.wallet);
+      res.json(card.toJSON());
     })
   )
 );
@@ -43,7 +43,7 @@ app.post(
     generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
       const { user } = req as any;
       const { user: userToIncreament, amount } = req.body;
-      await TransactionController.payBallance(user.id, userToIncreament.id, parseFloat(amount));
+      await TransactionController.payBallance(user.id, userToIncreament, parseFloat(amount));
       res.json({});
     })
   )
