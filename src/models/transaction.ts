@@ -1,7 +1,6 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
 import SequelizeInstance from "./connection";
 import TransactionType from "./transactionType";
-import Card from "./card";
 import User from "./user";
 
 class Transaction extends Model {}
@@ -35,12 +34,7 @@ Transaction.init(
     },
     card: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       unique: true,
-      references: {
-        model: Card,
-        key: "id",
-      },
     },
     userEffected: {
       type: DataTypes.INTEGER,

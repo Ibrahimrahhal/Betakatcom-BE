@@ -23,9 +23,9 @@ export default class generic {
 
   public static roleBasedRouteWrapper(userType: number | number[], handler: RequestHandler): RequestHandler {
     return (req: Request, res: Response, next: NextFunction): void => {
-      const user = req as any;
+      const { user } = req as any;
       const userTypes = userType instanceof Array ? userType : [userType];
-      if (!userTypes.includes(user.type)) {
+      if (!userTypes.includes(user.get("type"))) {
         res.sendStatus(HTTP_RESPONSES.UNAUTHORIZED);
         return;
       }

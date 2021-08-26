@@ -101,7 +101,7 @@ app.post(
       const { user } = req as any;
       const sellingPoint = req.body;
       sellingPoint.createdBy = user.id;
-      const createduser = await userController.create(sellingPoint, UserType.sellerId);
+      const createduser = await userController.create(sellingPoint, UserType.sellingPointId);
       res.json(createduser.getAsJson());
     })
   )

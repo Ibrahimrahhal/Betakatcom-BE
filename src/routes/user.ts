@@ -8,16 +8,12 @@ app.get("/", (req, res) => {
   res.json((req as any).user.toJSON());
 });
 
-app.post("/", (req, res) => {
-  res.json((req as any).user.toJSON());
-});
-
 app.put(
   "/change-password",
   generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
     const { oldPassword, newPassword } = req.body;
     const { user } = req as any;
-    userController.changePassword(user.id, oldPassword, newPassword);
+    userController.changePassword(user.get("id"), oldPassword, newPassword);
     res.json({});
   })
 );

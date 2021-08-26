@@ -8,6 +8,7 @@ CardType.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     nameArabic: {
       type: DataTypes.STRING,
@@ -25,13 +26,12 @@ CardType.init(
       allowNull: false,
     },
     image: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(4000),
     },
     price: {
       type: DataTypes.DOUBLE,
-      allowNull: false,
     },
-    createdOn: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: Sequelize.fn("now"),

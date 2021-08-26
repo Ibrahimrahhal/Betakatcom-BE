@@ -8,7 +8,7 @@ app.get(
   "/",
   generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
     const cards = await CardTypeController.getAll();
-    res.json(cards.map((card) => card.toJSON()));
+    res.json(cards);
   })
 );
 
@@ -19,6 +19,7 @@ app.post(
     generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
       const { nameArabic, nameEnglish, image, price, parent } = req.body;
       const cardType = await CardTypeController.create({
+        id: 10,
         nameArabic,
         nameEnglish,
         image,
