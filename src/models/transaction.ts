@@ -34,7 +34,7 @@ Transaction.init(
     },
     card: {
       type: DataTypes.INTEGER,
-      unique: true
+      unique: true,
     },
     userEffected: {
       type: DataTypes.INTEGER,

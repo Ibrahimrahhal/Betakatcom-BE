@@ -8,7 +8,7 @@ CardType.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     nameArabic: {
       type: DataTypes.STRING,
@@ -29,7 +29,7 @@ CardType.init(
       type: DataTypes.STRING(4000),
     },
     price: {
-      type: DataTypes.DOUBLE
+      type: DataTypes.DOUBLE,
     },
     createdAt: {
       type: DataTypes.DATE,

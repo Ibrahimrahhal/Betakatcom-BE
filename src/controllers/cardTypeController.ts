@@ -11,16 +11,16 @@ export default class CardTypeController {
   }
   public static async getAll(tree: boolean = true): Promise<any[]> {
     let cards: any[] = await CardType.findAll();
-    cards = cards.map(card => card.toJSON());
-    if(tree) {
+    cards = cards.map((card) => card.toJSON());
+    if (tree) {
       cards.forEach((card: any) => {
-        if(card.type) {
-          const parentType = cards.find(innerCard => innerCard.id === card.type);
-          if(!parentType.children) parentType.children = [];
+        if (card.type) {
+          const parentType = cards.find((innerCard) => innerCard.id === card.type);
+          if (!parentType.children) parentType.children = [];
           parentType.children.push(card);
         }
       });
-      cards = cards.filter(card => !card.type);
+      cards = cards.filter((card) => !card.type);
     }
     return cards;
   }

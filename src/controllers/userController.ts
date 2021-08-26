@@ -13,9 +13,8 @@ export default class UserController {
   }
 
   public static getSellingPoints(createdBy?: number): Promise<User[]> {
-    const query: any =  { type: UserType.sellingPointId, deletedOn: null };
-    if(createdBy) 
-      query.createdBy = createdBy;
+    const query: any = { type: UserType.sellingPointId, deletedOn: null };
+    if (createdBy) query.createdBy = createdBy;
     return User.findAll({
       where: query,
     });

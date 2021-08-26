@@ -9,7 +9,7 @@ Card.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     code: {
       type: DataTypes.STRING,
@@ -37,6 +37,6 @@ Card.init(
 );
 
 Card.hasOne(Transaction, {
-  foreignKey: 'card'
+  foreignKey: "card",
 });
 export default Card;
