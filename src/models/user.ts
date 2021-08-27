@@ -58,14 +58,6 @@ User.init(
         key: "id",
       },
     },
-    wallet: {
-      type: DataTypes.INTEGER,
-      unique: true,
-      references: {
-        model: Wallet,
-        key: "id",
-      },
-    },
     createdBy: {
       type: DataTypes.INTEGER,
       references: {
@@ -89,4 +81,7 @@ User.init(
   }
 );
 
+User.belongsTo(Wallet, {
+  foreignKey: 'wallet'
+})
 export default User;

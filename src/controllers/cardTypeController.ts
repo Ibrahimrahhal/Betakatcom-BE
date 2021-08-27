@@ -10,7 +10,9 @@ export default class CardTypeController {
     return await CardType.findOne({ where: { id: id } });
   }
   public static async getAll(tree: boolean = true): Promise<any[]> {
-    let cards: any[] = await CardType.findAll();
+    let cards: any[] = await CardType.findAll({
+      where: {deletedOn: null}
+    });
     cards = cards.map((card) => card.toJSON());
     if (tree) {
       cards.forEach((card: any) => {
