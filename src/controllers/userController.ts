@@ -1,13 +1,15 @@
 import { Transaction } from "sequelize";
 import UserType from "../models/userType";
 import User from "../models/user";
-import Wallet from "./WalletController";
+import Wallet from "../models/wallet";
+import WalletController from "./WalletController";
 import Crypto from "../utils/crypto";
 export default class UserController {
   private constructor() {}
 
   public static getSellers(): Promise<User[]> {
     return User.findAll({
+      include: [Wallet],
       where: { type: UserType.sellerId, deletedOn: null },
     });
   }
@@ -28,7 +30,7 @@ export default class UserController {
 
   public static async create(user: any, type: number, intialBalance: number = 0): Promise<User> {
     if ([UserType.sellingPointId, UserType.sellerId].includes(type)) {
-      const wallet = await Wallet.create(intialBalance);
+      const wallet = await WalletController.create(intialBalance);
       user.wallet = wallet.get("id");
     }
     user.password = Crypto.hash(user.password);
