@@ -5,12 +5,13 @@ services:
     container_name: betakatcom-api
     build:
       context: .
-      dockerfile: dockerfile.prod
+      dockerfile: dockerfile.test
 
     ports:
       - 443:443
       - 80:80
-
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   db:
     container_name: betakatcom-db-test
     build:
