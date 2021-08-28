@@ -82,6 +82,6 @@ User.init(
 );
 
 User.belongsTo(Wallet, {
-  foreignKey: 'wallet'
-})
+  foreignKey: "wallet",
+});
 export default User;

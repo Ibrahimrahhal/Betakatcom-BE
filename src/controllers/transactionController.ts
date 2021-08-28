@@ -104,7 +104,7 @@ export default class TransactionController {
       );
       try {
         await WalletController.decrement(userToIncreament.get("wallet") as number, amount, t);
-      } catch (e) {
+      } catch (e: any) {
         if (e.toString().includes("Out of range value")) {
           throw new Error("[RETURN] Given Amount Is Bigger Than Ballance!");
         } else {
