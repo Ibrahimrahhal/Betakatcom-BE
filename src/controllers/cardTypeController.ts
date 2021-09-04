@@ -18,6 +18,7 @@ export default class CardTypeController {
       cards.forEach((card: any) => {
         if (card.type) {
           const parentType = cards.find((innerCard) => innerCard.id === card.type);
+          if (!parentType) return;
           if (!parentType.children) parentType.children = [];
           parentType.children.push(card);
         }
@@ -28,5 +29,9 @@ export default class CardTypeController {
   }
   public static async update(card: any): Promise<void> {
     await CardType.update(card, { where: { id: card.id } });
+  }
+
+  public static async delete(card: { id: number }): Promise<void> {
+    await CardType.update({ deletedOn: Date.now() }, { where: { id: card.id } });
   }
 }
