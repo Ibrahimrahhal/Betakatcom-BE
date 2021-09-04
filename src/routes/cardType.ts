@@ -1,3 +1,4 @@
+import { HTTP_RESPONSES } from './../utils/constants';
 import { Router } from "express";
 import { generic } from "../utils";
 import CardTypeController from "../controllers/cardTypeController";
@@ -37,6 +38,22 @@ app.put(
     generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
       const card = req.body;
       await CardTypeController.update(card);
+      res.json({});
+    })
+  )
+);
+
+app.delete(
+  "/",
+  generic.roleBasedRouteWrapper(
+    UserType.adminId,
+    generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
+      const { id } = req.query;
+      if (!id) {
+        res.sendStatus(HTTP_RESPONSES.BAD_REQUEST);
+        return;
+      }
+      await CardTypeController.delete({id} as any);
       res.json({});
     })
   )

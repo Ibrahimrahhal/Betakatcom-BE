@@ -11,7 +11,7 @@ CardType.init(
       autoIncrement: true,
     },
     nameArabic: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     type: {
