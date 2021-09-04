@@ -1,4 +1,4 @@
-import { HTTP_RESPONSES } from './../utils/constants';
+import { HTTP_RESPONSES } from "./../utils/constants";
 import { Router } from "express";
 import { generic } from "../utils";
 import CardTypeController from "../controllers/cardTypeController";
@@ -53,7 +53,7 @@ app.delete(
         res.sendStatus(HTTP_RESPONSES.BAD_REQUEST);
         return;
       }
-      await CardTypeController.delete({id} as any);
+      await CardTypeController.delete({ id } as any);
       res.json({});
     })
   )

@@ -10,10 +10,9 @@ const sequelize = new Sequelize(databaseName, databaseUsername, databasePassword
   dialect: "mysql",
   logging: false,
   define: {
-    charset: 'utf8',
-    collate: 'utf8_general_ci', 
-    timestamps: true
-  }
+    charset: "utf8",
+    collate: "utf8_general_ci",
+  },
 });
 
 export default sequelize;
