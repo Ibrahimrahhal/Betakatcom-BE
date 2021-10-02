@@ -28,7 +28,13 @@ CardType.init(
     image: {
       type: DataTypes.STRING(4000),
     },
-    price: {
+    priceA: {
+      type: DataTypes.DOUBLE,
+    },
+    priceB: {
+      type: DataTypes.DOUBLE,
+    },
+    priceC: {
       type: DataTypes.DOUBLE,
     },
     createdAt: {

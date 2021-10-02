@@ -1,4 +1,5 @@
 import CardType from "./../models/cardType";
+import { Transaction as DbTransaction } from "sequelize";
 
 export default class CardTypeController {
   private constructor() {}
@@ -6,8 +7,8 @@ export default class CardTypeController {
   public static async create(card: any): Promise<CardType> {
     return await CardType.create(card);
   }
-  public static async get(id: number): Promise<CardType | null> {
-    return await CardType.findOne({ where: { id: id } });
+  public static async get(id: number, t?: DbTransaction): Promise<CardType | null> {
+    return await CardType.findOne({ where: { id: id }, transaction: t });
   }
   public static async getAll(tree: boolean = true): Promise<any[]> {
     let cards: any[] = await CardType.findAll({

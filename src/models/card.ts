@@ -24,6 +24,10 @@ Card.init(
         key: "id",
       },
     },
+    serialNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     createdOn: {
       type: DataTypes.DATE,
       allowNull: false,

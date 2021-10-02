@@ -18,12 +18,14 @@ app.post(
   generic.roleBasedRouteWrapper(
     UserType.adminId,
     generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
-      const { nameArabic, nameEnglish, image, price, type } = req.body;
+      const { nameArabic, nameEnglish, image, priceA, priceB, priceC, type } = req.body;
       const cardType = await CardTypeController.create({
         nameArabic,
         nameEnglish,
         image,
-        price,
+        priceA,
+        priceB,
+        priceC,
         type,
       });
       res.json(cardType.toJSON());

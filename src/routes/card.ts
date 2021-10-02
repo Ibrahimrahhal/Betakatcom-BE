@@ -9,8 +9,8 @@ app.post(
   generic.roleBasedRouteWrapper(
     UserType.adminId,
     generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
-      const { code, type } = req.body;
-      const card = await Card.create(code, type);
+      const { code, type, serialNumber } = req.body;
+      const card = await Card.create(code, type, serialNumber);
       res.json(card.toJSON());
     })
   )

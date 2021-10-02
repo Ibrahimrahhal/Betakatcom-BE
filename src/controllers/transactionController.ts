@@ -1,4 +1,4 @@
-import { Transaction as DbTransaction, where, col, and } from "sequelize";
+import { Transaction as DbTransaction, where, col, and, or, literal } from "sequelize";
 import Card from "../models/card";
 import Transaction from "../models/transaction";
 import TranscationType from "../models/transactionType";
@@ -11,9 +11,22 @@ import UserType from "../models/userType";
 export default class TransactionController {
   private constructor() {}
 
+  public static async getTransactionsHistory(userId: number): Promise<Transaction[]> {
+    return await Transaction.findAll({
+      include: [{ model: Card }],
+      where: or(
+        where(col("Transaction.userEffected"), userId as any),
+        where(col("Transaction.createdBy"), userId as any)
+      ),
+      order: literal("Transaction.createdOn ASC"),
+    });
+  }
+
   public static purchaseCard(userId: number, cardType: number, walletId: number): Promise<Card> {
     return connection.transaction(async (t: DbTransaction) => {
-      const _cardType = await CardTypeController.get(cardType);
+      const _cardType = await CardTypeController.get(cardType, t);
+      const user = await UserController.getById(userId, t);
+      if (!user) throw new Error("[RETURN] User not found");
       if (!_cardType) throw new Error("[RETURN] Unknown Card Type");
       if (!_cardType.get("price")) throw new Error("[RETURN] Only Leaf Card Types Allowed");
 
@@ -22,13 +35,17 @@ export default class TransactionController {
         where: and(where(col("Transaction.card"), "IS", null), where(col("Card.type"), cardType as any)),
         limit: 1,
         transaction: t,
+        order: literal("Card.createdOn ASC"),
       });
       if (cards.length === 0) throw new Error("[RETURN] No Cards Found");
       const selectedCard = cards[0];
+      const userClass: string = user.get("class") as string;
+      if (!userClass) throw new Error("[RETURN] User Doesn't have a defined class");
+
       await Transaction.create(
         {
           type: TranscationType.cardPurchase,
-          amount: -1 * (_cardType.get("price") as number),
+          amount: -1 * (_cardType.get(`price${userClass}`) as number),
           card: selectedCard.get("id"),
           createdBy: userId,
           userEffected: userId,
@@ -38,7 +55,7 @@ export default class TransactionController {
         }
       );
       try {
-        await WalletController.decrement(walletId, _cardType.get("price") as number, t);
+        await WalletController.decrementBallance(walletId, _cardType.get(`price${userClass}`) as number, t);
       } catch (e) {
         throw new Error("[RETURN] No Enough Ballance In Wallet!");
       }
@@ -46,17 +63,11 @@ export default class TransactionController {
     });
   }
 
-  public static increaseBallance(
-    userId: number,
-    userWalletId: number,
-    userIdToIncrease: number,
-    amount: number
-  ): Promise<void> {
+  public static increaseBallance(userId: number, userIdToIncrease: number, amount: number): Promise<void> {
     return connection.transaction(async (t: DbTransaction) => {
       if (amount < 0) throw new Error("[RETURN] Negative Amount Not Allowed");
       const userToIncreament = await UserController.getById(userIdToIncrease, t);
       if (!userToIncreament) throw new Error("[RETURN] User Not Found");
-      console.log(userToIncreament.get("type"), UserType.sellingPointId);
       if (userToIncreament.get("type") !== UserType.sellingPointId)
         throw new Error("[RETURN] Only Selling Points Users Allowed");
       await Transaction.create(
@@ -81,12 +92,24 @@ export default class TransactionController {
           transaction: t,
         }
       );
-      await WalletController.increment(userToIncreament.get("wallet") as number, amount, t);
-      await WalletController.increment(userWalletId, amount, t);
+      await Transaction.create(
+        {
+          type: TranscationType.addDept,
+          amount: amount,
+          createdBy: userId,
+          userEffected: userIdToIncrease,
+        },
+        {
+          transaction: t,
+        }
+      );
+
+      await WalletController.incrementBallance(userToIncreament.get("wallet") as number, amount, t);
+      await WalletController.incrementDept(userToIncreament.get("wallet") as number, amount, t);
     });
   }
 
-  public static payBallance(userId: number, PayingUserId: number, amount: number): Promise<void> {
+  public static payDept(userId: number, PayingUserId: number, amount: number): Promise<void> {
     return connection.transaction(async (t: DbTransaction) => {
       const userToIncreament = await UserController.getById(PayingUserId, t);
       if (!userToIncreament) throw new Error("[RETURN] User Not Found");
@@ -102,8 +125,74 @@ export default class TransactionController {
           transaction: t,
         }
       );
+      await Transaction.create(
+        {
+          type: TranscationType.payDept,
+          amount: -1 * amount,
+          createdBy: userId,
+          userEffected: PayingUserId,
+        },
+        {
+          transaction: t,
+        }
+      );
+
       try {
-        await WalletController.decrement(userToIncreament.get("wallet") as number, amount, t);
+        await WalletController.decrementDept(userToIncreament.get("wallet") as number, amount, t);
+      } catch (e: any) {
+        if (e.toString().includes("Out of range value")) {
+          throw new Error("[RETURN] Given Amount Is Bigger Than Ballance!");
+        } else {
+          throw new Error(e.toString());
+        }
+      }
+    });
+  }
+
+  public static transferDept(payingUserId: number, RecievingUserId: number, amount: number): Promise<void> {
+    return connection.transaction(async (t: DbTransaction) => {
+      const payingUser = await UserController.getById(payingUserId, t);
+      const RecievingUser = await UserController.getById(RecievingUserId, t);
+      if (!payingUser || !RecievingUser) throw new Error("[RETURN] User Not Found");
+      if (payingUser.get("type") != UserType.sellingPointId)
+        throw new Error("[RETURN] Dept Can Only Be Transered From Selling Point To Seller");
+      if (amount < 0) throw new Error("[RETURN] Negative Amount Not Allowed");
+      await Transaction.create(
+        {
+          type: TranscationType.ballancePay,
+          amount: -1 * amount,
+          createdBy: RecievingUser,
+          userEffected: payingUser,
+        },
+        {
+          transaction: t,
+        }
+      );
+      await Transaction.create(
+        {
+          type: TranscationType.payDept,
+          amount: amount,
+          createdBy: RecievingUser,
+          userEffected: payingUser,
+        },
+        {
+          transaction: t,
+        }
+      );
+      await Transaction.create(
+        {
+          type: TranscationType.addDept,
+          amount: amount,
+          createdBy: RecievingUser,
+          userEffected: RecievingUser,
+        },
+        {
+          transaction: t,
+        }
+      );
+      try {
+        await WalletController.decrementDept(payingUser.get("wallet") as number, amount, t);
+        await WalletController.incrementDept(RecievingUser.get("wallet") as number, amount, t);
       } catch (e: any) {
         if (e.toString().includes("Out of range value")) {
           throw new Error("[RETURN] Given Amount Is Bigger Than Ballance!");
