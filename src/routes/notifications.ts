@@ -7,8 +7,8 @@ const app = Router({ mergeParams: true });
 app.get(
   "/",
   generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
-    const user = req as any;
-    const notifcations = await notificationController.get(parseInt(user.id));
+    const {user} = req as any;
+    const notifcations = await notificationController.get(parseInt(user.get('id')));
     res.json((notifcations || []).map((item) => item.toJSON()));
   })
 );
@@ -16,10 +16,10 @@ app.get(
 app.put(
   "/token",
   generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
-    const token: string = req.body;
-    const user = req as any;
+    const { token } = req.body;
+    const {user} = req as any;
     await userController.update({
-      id: parseInt(user.id),
+      id: parseInt(user.get('id')),
       token,
     });
     res.json({});

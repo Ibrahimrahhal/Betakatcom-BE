@@ -12,7 +12,16 @@ app.get(
   generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
     const { user } = req as any;
     const transactions = await TransactionController.getTransactionsHistory(user.id);
-    res.json((transactions || []).map((t) => t.toJSON()));
+    const finalTransactions = [];
+    for(const item of transactions) {
+      let tempItem = item.toJSON();
+      if((tempItem as any).card) {
+        (tempItem as any).card = (await TransactionController.getCard((tempItem as any).card))?.toJSON();
+      }
+      finalTransactions.push(tempItem);
+    }
+
+    res.json((finalTransactions || []));
   })
 );
 

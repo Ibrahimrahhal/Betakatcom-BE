@@ -13,12 +13,17 @@ export default class TransactionController {
 
   public static async getTransactionsHistory(userId: number): Promise<Transaction[]> {
     return await Transaction.findAll({
-      include: [{ model: Card }],
       where: or(
         where(col("Transaction.userEffected"), userId as any),
         where(col("Transaction.createdBy"), userId as any)
       ),
       order: literal("Transaction.createdOn ASC"),
+    });
+  }
+
+  public static async getCard(id: number): Promise<Card | null> {
+    return await Card.findOne({
+      where: { id }
     });
   }
 
