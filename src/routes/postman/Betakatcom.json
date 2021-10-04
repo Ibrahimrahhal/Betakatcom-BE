@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "16be246c-4d6b-436e-a40c-6eddb892c31d",
+		"_postman_id": "3ae01f22-1f23-462f-8ac8-605be8226eb7",
 		"name": "Betakatcom",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -45,15 +45,6 @@
 									"originalRequest": {
 										"method": "GET",
 										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
 										"url": {
 											"raw": "{{API_URL}}/users/sellers",
 											"host": [
@@ -1877,6 +1868,135 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"data\": {\n        \"error\": \"Given Amount Is Bigger Than Ballance!\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/transaction/",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"transaction",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "Save User Token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "U2FsdGVkX1+ouxe32stQr3Rg7dQR1+2eoke/+WurJVbHIB3i/WWFrgnyVSUl38Kljrjb8levFWd42EEO1e1mzZ2uHLpynhRMzG2IvXdFv9QHBW5GzZoqCB0gigtRFyL9AAmSqSHUksm7BoQwYb8fakTtCIILOnuihES/7yFe8gdX2BJAzU7A2JaUryFBhdt5lqpWL8lCfSph7hFt9VIzyLCMdzH+vXx3l6Afw8gXVxPqgTTup+BDXQnX9ssyTBFeIfcR66yVA3mFepQ4PClZg5SE02Tb5+txL75a9+fq942gRnHxafCEl3Sy7E3UdvB3EZoWCr4SFl3oOxMwBNsXttzjxdcT9N5ccfJJIq8l55c4XjzY6GlD0G7W/Eowo9KbAEWKGlaX6tfPOLFIJDLOLtp+nZodmC/M213TBiMXGkeNZjATstV1UstRQqCU9oCN5WyHo4MSb5NYpVBeNEmbRNuZvJqYJwwoiJJiivYi73L1ChbbMWzpAxmS7+8jOsuFfTB9uRlu5ua5YuVV7+rD3oFQH7XNkGjVgX8AaehWH73JJ2ut//IKv83RNDIZUeeDYeo+Z6r6G57uyw1dGOP89XBRIpO2yIESEx8jzb/fG32WeeiCEQN4aSGcqCVts8VuCSI/pyC043n5PiYULKmM7+D0ChOK1KsdDEJQEsomdZLia0dxvzx/xZHo/QMGFXPv",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": { \"token\": \"samsung asdsa\"}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/notifications/token",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"notifications",
+								"token"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Example",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"data\": { \"token\": \"samsung asdsa\"}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/notifications/token",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"notifications",
+										"token"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Get Notifications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/notifications",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"notifications"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL}}/notifications",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"notifications"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
 						}
 					]
 				}

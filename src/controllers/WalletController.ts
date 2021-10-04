@@ -7,11 +7,19 @@ export default class WalletController {
     return await Wallet.create({ balance: intialBalance });
   }
 
-  public static async increment(id: number, amount: number, transaction?: Transaction): Promise<void> {
+  public static async incrementBallance(id: number, amount: number, transaction?: Transaction): Promise<void> {
     await Wallet.increment("balance", { by: amount, where: { id }, transaction });
   }
 
-  public static async decrement(id: number, amount: number, transaction?: Transaction): Promise<void> {
+  public static async decrementBallance(id: number, amount: number, transaction?: Transaction): Promise<void> {
     await Wallet.increment("balance", { by: -1 * amount, where: { id }, transaction });
+  }
+
+  public static async incrementDept(id: number, amount: number, transaction?: Transaction): Promise<void> {
+    await Wallet.increment("dept", { by: amount, where: { id }, transaction });
+  }
+
+  public static async decrementDept(id: number, amount: number, transaction?: Transaction): Promise<void> {
+    await Wallet.increment("dept", { by: -1 * amount, where: { id }, transaction });
   }
 }

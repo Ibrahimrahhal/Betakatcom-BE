@@ -8,6 +8,8 @@ class TransactionType extends Model {
       { id: this.cardPurchase, name: "Card Purchase" },
       { id: this.creditSelling, name: "Credit Selling" },
       { id: this.ballancePay, name: "Ballance Pay" },
+      { id: this.addDept, name: "Add Dept" },
+      { id: this.payDept, name: "Pay Dept" },
     ].map((type) => new TransactionType(type));
   }
 
@@ -25,6 +27,14 @@ class TransactionType extends Model {
 
   static get ballancePay(): number {
     return 4;
+  }
+
+  static get addDept(): number {
+    return 5;
+  }
+
+  static get payDept(): number {
+    return 6;
   }
 }
 

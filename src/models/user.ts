@@ -43,6 +43,9 @@ User.init(
     email: {
       type: DataTypes.STRING,
     },
+    class: {
+      type: DataTypes.STRING,
+    },
     token: {
       type: DataTypes.STRING,
     },
