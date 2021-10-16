@@ -33,7 +33,7 @@ export default class TransactionController {
       const user = await UserController.getById(userId, t);
       if (!user) throw new Error("[RETURN] User not found");
       if (!_cardType) throw new Error("[RETURN] Unknown Card Type");
-      if (!_cardType.get("price")) throw new Error("[RETURN] Only Leaf Card Types Allowed");
+      if (!_cardType.get("priceA") || !_cardType.get("priceB") || !_cardType.get("priceC")) throw new Error("[RETURN] Only Leaf Card Types Allowed");
 
       const cards = await Card.findAll({
         include: [{ model: Transaction }],
