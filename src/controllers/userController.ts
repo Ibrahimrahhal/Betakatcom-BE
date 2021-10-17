@@ -18,6 +18,7 @@ export default class UserController {
     const query: any = { type: UserType.sellingPointId, deletedOn: null };
     if (createdBy) query.createdBy = createdBy;
     return User.findAll({
+      include: [Wallet],
       where: query,
     });
   }
