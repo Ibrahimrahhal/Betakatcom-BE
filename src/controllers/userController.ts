@@ -51,8 +51,10 @@ export default class UserController {
     return User.findOne({ where: { username } });
   }
 
-  public static getById(id: number, transaction?: Transaction): Promise<User | null> {
-    return User.findOne({ where: { id }, transaction });
+  public static getById(id: number, transaction?: Transaction, includeWallet: boolean = false): Promise<User | null> {
+    return User.findOne({ 
+      include: includeWallet ? [Wallet] : [],
+      where: { id }, transaction });
   }
 
   public static async changePassword(userId: number, oldPassword: string, newPassword: string): Promise<void> {

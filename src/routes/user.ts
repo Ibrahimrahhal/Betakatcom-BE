@@ -4,8 +4,10 @@ import userController from "../controllers/userController";
 
 const app = Router({ mergeParams: true });
 
-app.get("/", (req, res) => {
-  res.json((req as any).user.toJSON());
+app.get("/", async (req, res) => {
+  const {id} = (req as any).user.toJSON();
+  const user = await userController.getById(id, undefined, true);
+  res.json(user?.toJSON());
 });
 
 app.put(
