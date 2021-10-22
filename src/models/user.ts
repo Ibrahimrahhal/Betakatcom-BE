@@ -49,6 +49,10 @@ User.init(
     token: {
       type: DataTypes.STRING,
     },
+    blocked: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,

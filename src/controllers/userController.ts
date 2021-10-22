@@ -47,6 +47,14 @@ export default class UserController {
     );
   }
 
+  public static async block(id: string) {
+    await User.update({ blocked: true }, { where: { id } });
+  }
+
+  public static async unblock(id: string) {
+    await User.update({ blocked: false }, { where: { id } });
+  }
+
   public static get(username: string): Promise<User | null> {
     return User.findOne({ where: { username } });
   }
@@ -61,6 +69,6 @@ export default class UserController {
     const user = await this.getById(userId);
     if (!user) throw new Error("User Not Found");
     if (user.get("password") !== Crypto.hash(oldPassword)) throw new Error("Password Error");
-    await User.update({ password: newPassword }, { where: { id: userId } });
+    await User.update({ password: Crypto.hash(newPassword) }, { where: { id: userId } });
   }
 }

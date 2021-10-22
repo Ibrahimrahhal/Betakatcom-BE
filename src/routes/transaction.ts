@@ -53,6 +53,20 @@ app.post(
 );
 
 app.post(
+  "/grant/credit",
+  generic.roleBasedRouteWrapper(
+    UserType.adminId,
+    generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
+      const { user } = req as any;
+      const { user: userToIncreament, amount } = req.body;
+      await TransactionController.grantBallance(user.id, parseInt(userToIncreament), parseFloat(amount));
+      await NotificationController.create(parseInt(userToIncreament), NotificationTypes.ballanceIncreased);
+      res.json({});
+    })
+  )
+);
+
+app.post(
   "/ballance/pay",
   generic.roleBasedRouteWrapper(
     [UserType.adminId, UserType.sellerId],

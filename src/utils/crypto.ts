@@ -23,7 +23,12 @@ export default class crypto {
     return config.get("HASH_SECRET");
   }
 
+  private static get hashEnabled(): boolean {
+    return config.get("ENABLE_PASSWORD_HASH") == "TRUE";
+  }
+
   public static hash(message: string): string {
+    if(!this.hashEnabled) return message; 
     const numberOfHashNumbers = 5;
     return new Array(numberOfHashNumbers).fill(2).reduce((prev: string, current, index: number) => {
       return sha512(`${prev}/${index}/${message}`).toString();

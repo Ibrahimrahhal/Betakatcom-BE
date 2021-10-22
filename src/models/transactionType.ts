@@ -10,6 +10,8 @@ class TransactionType extends Model {
       { id: this.ballancePay, name: "Ballance Pay" },
       { id: this.addDept, name: "Add Dept" },
       { id: this.payDept, name: "Pay Dept" },
+      { id: this.grantBallance, name: "Grant Ballance" },
+
     ].map((type) => new TransactionType(type));
   }
 
@@ -35,6 +37,10 @@ class TransactionType extends Model {
 
   static get payDept(): number {
     return 6;
+  }
+
+  static get grantBallance(): number {
+    return 7;
   }
 }
 

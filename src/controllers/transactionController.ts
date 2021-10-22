@@ -72,7 +72,8 @@ export default class TransactionController {
     return connection.transaction(async (t: DbTransaction) => {
       if (amount < 0) throw new Error("[RETURN] Negative Amount Not Allowed");
       const userToIncreament = await UserController.getById(userIdToIncrease, t);
-      if (!userToIncreament) throw new Error("[RETURN] User Not Found");
+      const user = await UserController.getById(userId, t);
+      if (!userToIncreament || !user) throw new Error("[RETURN] User Not Found");
       if (userToIncreament.get("type") !== UserType.sellingPointId)
         throw new Error("[RETURN] Only Selling Points Users Allowed");
       await Transaction.create(
@@ -110,9 +111,37 @@ export default class TransactionController {
       );
 
       await WalletController.incrementBallance(userToIncreament.get("wallet") as number, amount, t);
+      try {
+        await WalletController.decrementBallance(user.get("wallet") as number, amount, t);
+      } catch (e) {
+        throw new Error("[RETURN] No Enough Ballance In Seller Wallet!");
+      }
       await WalletController.incrementDept(userToIncreament.get("wallet") as number, amount, t);
     });
   }
+
+  public static grantBallance(userId: number, userIdToIncrease: number, amount: number): Promise<void> {
+    return connection.transaction(async (t: DbTransaction) => {
+      if (amount < 0) throw new Error("[RETURN] Negative Amount Not Allowed");
+      const userToIncreament = await UserController.getById(userIdToIncrease, t);
+      if (!userToIncreament) throw new Error("[RETURN] User Not Found");
+      if (userToIncreament.get("type") !== UserType.sellerId)
+        throw new Error("[RETURN] Only Seller Users Allowed");
+      await Transaction.create(
+        {
+          type: TranscationType.grantBallance,
+          amount: amount,
+          createdBy: userId,
+          userEffected: userIdToIncrease,
+        },
+        {
+          transaction: t,
+        }
+      );
+      await WalletController.incrementBallance(userToIncreament.get("wallet") as number, amount, t);
+    });
+  }
+
 
   public static payDept(userId: number, PayingUserId: number, amount: number): Promise<void> {
     return connection.transaction(async (t: DbTransaction) => {
