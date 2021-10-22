@@ -13,15 +13,15 @@ app.get(
     const { user } = req as any;
     const transactions = await TransactionController.getTransactionsHistory(user.id);
     const finalTransactions = [];
-    for(const item of transactions) {
+    for (const item of transactions) {
       let tempItem = item.toJSON();
-      if((tempItem as any).card) {
+      if ((tempItem as any).card) {
         (tempItem as any).card = (await TransactionController.getCard((tempItem as any).card))?.toJSON();
       }
       finalTransactions.push(tempItem);
     }
 
-    res.json((finalTransactions || []));
+    res.json(finalTransactions || []);
   })
 );
 

@@ -23,7 +23,7 @@ export default class TransactionController {
 
   public static async getCard(id: number): Promise<Card | null> {
     return await Card.findOne({
-      where: { id }
+      where: { id },
     });
   }
 
@@ -33,7 +33,8 @@ export default class TransactionController {
       const user = await UserController.getById(userId, t);
       if (!user) throw new Error("[RETURN] User not found");
       if (!_cardType) throw new Error("[RETURN] Unknown Card Type");
-      if (!_cardType.get("priceA") || !_cardType.get("priceB") || !_cardType.get("priceC")) throw new Error("[RETURN] Only Leaf Card Types Allowed");
+      if (!_cardType.get("priceA") || !_cardType.get("priceB") || !_cardType.get("priceC"))
+        throw new Error("[RETURN] Only Leaf Card Types Allowed");
 
       const cards = await Card.findAll({
         include: [{ model: Transaction }],
@@ -125,8 +126,7 @@ export default class TransactionController {
       if (amount < 0) throw new Error("[RETURN] Negative Amount Not Allowed");
       const userToIncreament = await UserController.getById(userIdToIncrease, t);
       if (!userToIncreament) throw new Error("[RETURN] User Not Found");
-      if (userToIncreament.get("type") !== UserType.sellerId)
-        throw new Error("[RETURN] Only Seller Users Allowed");
+      if (userToIncreament.get("type") !== UserType.sellerId) throw new Error("[RETURN] Only Seller Users Allowed");
       await Transaction.create(
         {
           type: TranscationType.grantBallance,
@@ -141,7 +141,6 @@ export default class TransactionController {
       await WalletController.incrementBallance(userToIncreament.get("wallet") as number, amount, t);
     });
   }
-
 
   public static payDept(userId: number, PayingUserId: number, amount: number): Promise<void> {
     return connection.transaction(async (t: DbTransaction) => {

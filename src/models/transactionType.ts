@@ -11,7 +11,6 @@ class TransactionType extends Model {
       { id: this.addDept, name: "Add Dept" },
       { id: this.payDept, name: "Pay Dept" },
       { id: this.grantBallance, name: "Grant Ballance" },
-
     ].map((type) => new TransactionType(type));
   }
 

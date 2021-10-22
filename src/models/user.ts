@@ -51,7 +51,7 @@ User.init(
     },
     blocked: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false
+      defaultValue: false,
     },
     password: {
       type: DataTypes.STRING,

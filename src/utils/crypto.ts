@@ -28,7 +28,7 @@ export default class crypto {
   }
 
   public static hash(message: string): string {
-    if(!this.hashEnabled) return message; 
+    if (!this.hashEnabled) return message;
     const numberOfHashNumbers = 5;
     return new Array(numberOfHashNumbers).fill(2).reduce((prev: string, current, index: number) => {
       return sha512(`${prev}/${index}/${message}`).toString();
