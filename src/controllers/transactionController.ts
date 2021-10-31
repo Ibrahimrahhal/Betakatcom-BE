@@ -194,8 +194,8 @@ export default class TransactionController {
         {
           type: TranscationType.ballancePay,
           amount: -1 * amount,
-          createdBy: RecievingUser,
-          userEffected: payingUser,
+          createdBy: RecievingUser.get('id'),
+          userEffected: payingUser.get('id'),
         },
         {
           transaction: t,
@@ -205,8 +205,8 @@ export default class TransactionController {
         {
           type: TranscationType.payDept,
           amount: amount,
-          createdBy: RecievingUser,
-          userEffected: payingUser,
+          createdBy: RecievingUser.get('id'),
+          userEffected: payingUser.get('id'),
         },
         {
           transaction: t,
@@ -216,8 +216,8 @@ export default class TransactionController {
         {
           type: TranscationType.addDept,
           amount: amount,
-          createdBy: RecievingUser,
-          userEffected: RecievingUser,
+          createdBy: RecievingUser.get('id'),
+          userEffected: RecievingUser.get('id'),
         },
         {
           transaction: t,
