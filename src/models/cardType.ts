@@ -37,6 +37,18 @@ CardType.init(
     priceC: {
       type: DataTypes.DOUBLE,
     },
+    profitA: {
+      type: DataTypes.DOUBLE,
+      defaultValue: 0
+    },
+    profitB: {
+      type: DataTypes.DOUBLE,
+      defaultValue: 0
+    },
+    profitC: {
+      type: DataTypes.DOUBLE,
+      defaultValue: 0
+    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,

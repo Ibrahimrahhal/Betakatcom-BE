@@ -22,4 +22,12 @@ export default class WalletController {
   public static async decrementDept(id: number, amount: number, transaction?: Transaction): Promise<void> {
     await Wallet.increment("dept", { by: -1 * amount, where: { id }, transaction });
   }
+
+  public static async incrementProfit(id: number, amount: number, transaction?: Transaction): Promise<void> {
+    await Wallet.increment("profit", { by: amount, where: { id }, transaction });
+  }
+
+  public static async decrementProfit(id: number, amount: number, transaction?: Transaction): Promise<void> {
+    await Wallet.increment("profit", { by: -1 * amount, where: { id }, transaction });
+  }
 }
