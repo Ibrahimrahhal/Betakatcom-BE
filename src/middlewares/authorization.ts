@@ -7,7 +7,7 @@ import { HTTP_RESPONSES } from "../utils/constants";
 export default async function (req: Request, res: Response, next: NextFunction): Promise<void> {
   const authHeader = req.get("Authorization");
   if (TokensController.verify(authHeader || "")) {
-    (req as any)["user"] = new User(TokensController.decode(authHeader || ""));
+    (req as any)["user"] = new User(TokensController.decode(authHeader || "") as any);
     (req as any)["user"] = await userController.getById((req as any)["user"].get("id"));
     if ((req as any)["user"].get("blocked")) {
       res.status(HTTP_RESPONSES.UNAUTHORIZED).send("User Blocked");

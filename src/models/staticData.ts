@@ -7,7 +7,7 @@ export const Sync = () => {
   modalToSync.forEach((modal) => {
     modal.types.forEach(async (type) => {
       await modal.findOrCreate({
-        where: { id: type.get("id") },
+        where: { id: type.get("id") as string },
         defaults: {
           ...type.toJSON(),
         },

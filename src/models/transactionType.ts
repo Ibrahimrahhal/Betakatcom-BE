@@ -47,7 +47,7 @@ class TransactionType extends Model {
   static get addProfit(): number {
     return 8;
   }
-  
+
   static get payProfit(): number {
     return 9;
   }

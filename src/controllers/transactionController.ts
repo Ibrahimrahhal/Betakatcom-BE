@@ -66,19 +66,27 @@ export default class TransactionController {
       } catch (e) {
         throw new Error("[RETURN] No Enough Ballance In Wallet!");
       }
-      await WalletController.incrementProfit(sellerForUser.get("wallet") as number, (_cardType.get(`profit${userClass}`) as number), t);
-      await Transaction.create(
-        {
-          type: TranscationType.addProfit,
-          amount: +(_cardType.get(`profit${userClass}`) as number),
-          card: selectedCard.get("id"),
-          createdBy: userId,
-          userEffected: sellerForUser.get('id'),
-        },
-        {
-          transaction: t,
-        }
-      );
+      try {
+        await WalletController.incrementProfit(
+          sellerForUser.get("wallet") as number,
+          _cardType.get(`profit${userClass}`) as number,
+          t
+        );
+        await Transaction.create(
+          {
+            type: TranscationType.addProfit,
+            amount: +(_cardType.get(`profit${userClass}`) as number),
+            createdBy: userId,
+            userEffected: sellerForUser.get("id"),
+          },
+          {
+            transaction: t,
+          }
+        );
+      } catch(e: any) {
+        console.log("shit", e.toString());
+        throw new Error("Asdads");
+      }
       return selectedCard;
     });
   }
@@ -224,7 +232,6 @@ export default class TransactionController {
     });
   }
 
-
   public static transferDept(payingUserId: number, RecievingUserId: number, amount: number): Promise<void> {
     return connection.transaction(async (t: DbTransaction) => {
       const payingUser = await UserController.getById(payingUserId, t);
@@ -280,11 +287,13 @@ export default class TransactionController {
   }
 
   public static stockTake(transactionID: number): Promise<[number, Transaction[]]> {
-      return Transaction.update({
-        stockTaken: true
-      }, {
+    return Transaction.update(
+      {
+        stockTaken: true,
+      },
+      {
         where: { id: transactionID },
-      });
+      }
+    );
   }
-
 }
