@@ -66,27 +66,23 @@ export default class TransactionController {
       } catch (e) {
         throw new Error("[RETURN] No Enough Ballance In Wallet!");
       }
-      try {
-        await WalletController.incrementProfit(
-          sellerForUser.get("wallet") as number,
-          _cardType.get(`profit${userClass}`) as number,
-          t
-        );
-        await Transaction.create(
-          {
-            type: TranscationType.addProfit,
-            amount: +(_cardType.get(`profit${userClass}`) as number),
-            createdBy: userId,
-            userEffected: sellerForUser.get("id"),
-          },
-          {
-            transaction: t,
-          }
-        );
-      } catch(e: any) {
-        console.log("shit", e.toString());
-        throw new Error("Asdads");
-      }
+      await WalletController.incrementProfit(
+        sellerForUser.get("wallet") as number,
+        _cardType.get(`profit${userClass}`) as number,
+        t
+      );
+      await Transaction.create(
+        {
+          type: TranscationType.addProfit,
+          amount: +(_cardType.get(`profit${userClass}`) as number),
+          createdBy: userId,
+          userEffected: sellerForUser.get("id"),
+        },
+        {
+          transaction: t,
+        }
+      );
+
       return selectedCard;
     });
   }
