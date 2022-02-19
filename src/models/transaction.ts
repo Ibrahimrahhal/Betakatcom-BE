@@ -24,6 +24,10 @@ Transaction.init(
       type: DataTypes.DOUBLE,
       allowNull: false,
     },
+    stockTaken: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
     createdBy: {
       type: DataTypes.INTEGER,
       allowNull: false,

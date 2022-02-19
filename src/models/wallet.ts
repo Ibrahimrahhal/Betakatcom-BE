@@ -20,6 +20,11 @@ Wallet.init(
       allowNull: false,
       defaultValue: 0,
     },
+    profit: {
+      type: DataTypes.DOUBLE.UNSIGNED,
+      allowNull: false,
+      defaultValue: 0,
+    },
   },
   {
     sequelize: SequelizeInstance,

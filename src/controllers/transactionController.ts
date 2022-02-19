@@ -35,7 +35,8 @@ export default class TransactionController {
       if (!_cardType) throw new Error("[RETURN] Unknown Card Type");
       if (!_cardType.get("priceA") || !_cardType.get("priceB") || !_cardType.get("priceC"))
         throw new Error("[RETURN] Only Leaf Card Types Allowed");
-
+      const sellerForUser = await UserController.getById(user.get("createdBy") as number, t);
+      if (!sellerForUser) throw new Error("[RETURN] Seller not found for this selling point");
       const cards = await Card.findAll({
         include: [{ model: Transaction }],
         where: and(where(col("Transaction.card"), "IS", null), where(col("Card.type"), cardType as any)),
@@ -65,6 +66,23 @@ export default class TransactionController {
       } catch (e) {
         throw new Error("[RETURN] No Enough Ballance In Wallet!");
       }
+      await WalletController.incrementProfit(
+        sellerForUser.get("wallet") as number,
+        _cardType.get(`profit${userClass}`) as number,
+        t
+      );
+      await Transaction.create(
+        {
+          type: TranscationType.addProfit,
+          amount: +(_cardType.get(`profit${userClass}`) as number),
+          createdBy: userId,
+          userEffected: sellerForUser.get("id"),
+        },
+        {
+          transaction: t,
+        }
+      );
+
       return selectedCard;
     });
   }
@@ -182,6 +200,34 @@ export default class TransactionController {
     });
   }
 
+  public static payProfit(userId: number, SellerUserId: number, amount: number): Promise<void> {
+    return connection.transaction(async (t: DbTransaction) => {
+      const sellerUser = await UserController.getById(SellerUserId, t);
+      if (!sellerUser) throw new Error("[RETURN] User Not Found");
+      if (amount < 0) throw new Error("[RETURN] Negative Amount Not Allowed");
+      await Transaction.create(
+        {
+          type: TranscationType.payProfit,
+          amount: -1 * amount,
+          createdBy: userId,
+          userEffected: SellerUserId,
+        },
+        {
+          transaction: t,
+        }
+      );
+      try {
+        await WalletController.decrementProfit(sellerUser.get("wallet") as number, amount, t);
+      } catch (e: any) {
+        if (e.toString().includes("Out of range value")) {
+          throw new Error("[RETURN] Given Amount Is Bigger Than Profit!");
+        } else {
+          throw new Error(e.toString());
+        }
+      }
+    });
+  }
+
   public static transferDept(payingUserId: number, RecievingUserId: number, amount: number): Promise<void> {
     return connection.transaction(async (t: DbTransaction) => {
       const payingUser = await UserController.getById(payingUserId, t);
@@ -234,5 +280,16 @@ export default class TransactionController {
         }
       }
     });
+  }
+
+  public static stockTake(transactionID: number): Promise<[number, Transaction[]]> {
+    return Transaction.update(
+      {
+        stockTaken: true,
+      },
+      {
+        where: { id: transactionID },
+      }
+    );
   }
 }
