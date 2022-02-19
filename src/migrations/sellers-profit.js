@@ -1,11 +1,12 @@
 'use strict';
-
+const sequelize = require("sequelize");
+const { DataTypes } = sequelize;
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.addColumn('CardType', 'profitA', { type: DataTypes.DOUBLE, defaultValue: 0 });
-    await queryInterface.addColumn('CardType', 'profitB', { type: DataTypes.DOUBLE, defaultValue: 0 });
-    await queryInterface.addColumn('CardType', 'profitC', { type: DataTypes.DOUBLE, defaultValue: 0 });
-    await queryInterface.addColumn('Wallet', 'profit', { 
+    await queryInterface.addColumn('CardTypes', 'profitA', { type: DataTypes.DOUBLE, defaultValue: 0 });
+    await queryInterface.addColumn('CardTypes', 'profitB', { type: DataTypes.DOUBLE, defaultValue: 0 });
+    await queryInterface.addColumn('CardTypes', 'profitC', { type: DataTypes.DOUBLE, defaultValue: 0 });
+    await queryInterface.addColumn('Wallets', 'profit', { 
       type: DataTypes.DOUBLE.UNSIGNED,
       allowNull: false,
       defaultValue: 0, 
@@ -14,10 +15,10 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.removeColumn('CardType', 'profitA', { });
-    await queryInterface.removeColumn('CardType', 'profitB', { });
-    await queryInterface.removeColumn('CardType', 'profitC', { });
-    await queryInterface.removeColumn('Wallet', 'profit', { });
+    await queryInterface.removeColumn('CardTypes', 'profitA', { });
+    await queryInterface.removeColumn('CardTypes', 'profitB', { });
+    await queryInterface.removeColumn('CardTypes', 'profitC', { });
+    await queryInterface.removeColumn('Wallets', 'profit', { });
   }
   
 };
