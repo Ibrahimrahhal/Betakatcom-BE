@@ -139,6 +139,31 @@ export default class TransactionController {
     });
   }
 
+  public static purchaseBill(userId: number, _amount: number): Promise<void> {
+    const amount = _amount + (Math.ceil(_amount/100) * 0.25);
+    return connection.transaction(async (t: DbTransaction) => {
+      const user = await UserController.getById(userId, t);
+      if (!user) throw new Error("[RETURN] User not found");
+      if (amount <= 0) throw new Error("[RETURN] Bill Price Should Be Larger than 0");
+      await Transaction.create(
+        {
+          type: TranscationType.payBill,
+          amount: -1 * (amount),
+          createdBy: userId,
+          userEffected: userId,
+        },
+        {
+          transaction: t,
+        }
+      );
+      try {
+        await WalletController.decrementBallance(user.get('wallet') as number, amount, t);
+      } catch (e) {
+        throw new Error("[RETURN] No Enough Ballance In Wallet!");
+      }
+    });
+  }
+
   public static grantBallance(userId: number, userIdToIncrease: number, amount: number): Promise<void> {
     return connection.transaction(async (t: DbTransaction) => {
       if (amount < 0) throw new Error("[RETURN] Negative Amount Not Allowed");
@@ -228,6 +253,47 @@ export default class TransactionController {
     });
   }
 
+  public static transferProfit(sellerId: number, amount: number): Promise<void> {
+    return connection.transaction(async (t: DbTransaction) => {
+      const sellerUser = await UserController.getById(sellerId, t);
+      if (!sellerUser) throw new Error("[RETURN] User Not Found");
+      if (amount < 0) throw new Error("[RETURN] Negative Amount Not Allowed");
+      
+      await Transaction.create(
+        {
+          type: TranscationType.payProfit,
+          amount: -1 * amount,
+          createdBy: sellerId,
+          userEffected: sellerId,
+        },
+        {
+          transaction: t,
+        }
+      );
+      await Transaction.create(
+        {
+          type: TranscationType.grantBallance,
+          amount: amount,
+          createdBy: sellerUser,
+          userEffected: sellerUser,
+        },
+        {
+          transaction: t,
+        }
+      );
+      try {
+        await WalletController.decrementProfit(sellerUser.get("wallet") as number, amount, t);
+      } catch (e: any) {
+        if (e.toString().includes("Out of range value")) {
+          throw new Error("[RETURN] Given Amount Is Bigger Than Profit!");
+        } else {
+          throw new Error(e.toString());
+        }
+      }
+      await WalletController.incrementBallance(sellerUser.get("wallet") as number, amount, t);
+
+    });
+  }
   public static transferDept(payingUserId: number, RecievingUserId: number, amount: number): Promise<void> {
     return connection.transaction(async (t: DbTransaction) => {
       const payingUser = await UserController.getById(payingUserId, t);
