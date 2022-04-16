@@ -140,7 +140,7 @@ export default class TransactionController {
   }
 
   public static purchaseBill(userId: number, _amount: number): Promise<void> {
-    const amount = _amount + (Math.ceil(_amount/100) * 0.25);
+    const amount = _amount + Math.ceil(_amount / 100) * 0.25;
     return connection.transaction(async (t: DbTransaction) => {
       const user = await UserController.getById(userId, t);
       if (!user) throw new Error("[RETURN] User not found");
@@ -148,7 +148,7 @@ export default class TransactionController {
       await Transaction.create(
         {
           type: TranscationType.payBill,
-          amount: -1 * (amount),
+          amount: -1 * amount,
           createdBy: userId,
           userEffected: userId,
         },
@@ -157,7 +157,7 @@ export default class TransactionController {
         }
       );
       try {
-        await WalletController.decrementBallance(user.get('wallet') as number, amount, t);
+        await WalletController.decrementBallance(user.get("wallet") as number, amount, t);
       } catch (e) {
         throw new Error("[RETURN] No Enough Ballance In Wallet!");
       }
@@ -258,7 +258,7 @@ export default class TransactionController {
       const sellerUser = await UserController.getById(sellerId, t);
       if (!sellerUser) throw new Error("[RETURN] User Not Found");
       if (amount < 0) throw new Error("[RETURN] Negative Amount Not Allowed");
-      
+
       await Transaction.create(
         {
           type: TranscationType.payProfit,
@@ -291,7 +291,6 @@ export default class TransactionController {
         }
       }
       await WalletController.incrementBallance(sellerUser.get("wallet") as number, amount, t);
-
     });
   }
   public static transferDept(payingUserId: number, RecievingUserId: number, amount: number): Promise<void> {
