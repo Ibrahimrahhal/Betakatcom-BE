@@ -53,6 +53,19 @@ app.post(
 );
 
 app.post(
+  "/pruchase/bill",
+  generic.roleBasedRouteWrapper(
+    UserType.sellingPointId,
+    generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
+      const { user } = req as any;
+      const { amount } = req.body;
+      await TransactionController.purchaseBill(user.id, parseFloat(amount));
+      res.json({});
+    })
+  )
+);
+
+app.post(
   "/grant/credit",
   generic.roleBasedRouteWrapper(
     UserType.adminId,
@@ -92,6 +105,19 @@ app.post(
       const { user } = req as any;
       const { user: userToIncreament, amount } = req.body;
       await TransactionController.payProfit(user.id, userToIncreament, parseFloat(amount));
+      res.json({});
+    })
+  )
+);
+
+app.put(
+  "/profit/transfer",
+  generic.roleBasedRouteWrapper(
+    [UserType.sellerId],
+    generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
+      const { user } = req as any;
+      const { amount } = req.body;
+      await TransactionController.transferProfit(user.id, parseFloat(amount) || 0);
       res.json({});
     })
   )
