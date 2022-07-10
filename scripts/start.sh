@@ -5,6 +5,7 @@ image_tag=dev
 container_name=betakatcom-be-dev
 dockerfile=dockerfile.dev
 listen_port=5000
+
 if [ -z "$(docker images -q $image_name:$image_tag)" ]; then
   docker build -t $image_name:$image_tag -f $dockerfile .
 fi
