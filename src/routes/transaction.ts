@@ -84,29 +84,4 @@ app.post(
   )
 );
 
-app.post(
-  "/profit/pay",
-  generic.roleBasedRouteWrapper(
-    [UserType.adminId],
-    generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
-      const { user } = req as any;
-      const { user: userToIncreament, amount } = req.body;
-      await TransactionController.payProfit(user.id, userToIncreament, parseFloat(amount));
-      res.json({});
-    })
-  )
-);
-
-app.post(
-  "/stock-take",
-  generic.roleBasedRouteWrapper(
-    [UserType.sellingPointId],
-    generic.asyncRouteErrorHandlerWrapper(async (req, res) => {
-      const { transaction } = req.body;
-      await TransactionController.stockTake(transaction);
-      res.json({});
-    })
-  )
-);
-
 export default generic.encapsulateRouter(app, "/transaction");
