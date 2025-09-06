@@ -8,3 +8,4 @@ import Notifications from "./notifications";
 
 export const PrivateRoutes = [user, users, transaction, cardType, card, Notifications];
 export const PublicRoutes = [authentication];
+// Auto-generated comment
