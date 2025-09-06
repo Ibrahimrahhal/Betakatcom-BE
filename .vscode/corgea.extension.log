@@ -1,0 +1,14 @@
+[2025-09-06T14:25:13.137Z] Request: GET https://www.corgea.app/api/v1/issues
+[2025-09-06T14:25:13.137Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"8d99c96c-76a5-4888-8b07-98fe600f01b6"}
+[2025-09-06T14:25:13.137Z] Request Params: {"project":"Betakatcom-BE","page":1,"page_size":50}
+[2025-09-06T14:25:13.138Z] Request Data: undefined
+[2025-09-06T14:25:13.980Z] Response Status: 200
+[2025-09-06T14:25:13.980Z] Response Headers: {"date":"Sat, 06 Sep 2025 14:25:12 GMT","content-type":"application/json","transfer-encoding":"chunked","connection":"close","server":"cloudflare","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","x-frame-options":"DENY","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin","cf-cache-status":"DYNAMIC","strict-transport-security":"max-age=0","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=B9CISV0v2LmJ3pnikABQ0omJUGvlYGimyGbTk5aSWGMJwlDltSDuLHYi7XZHYqnNERE5qS6rluwQYA3olT%2Bl5wsvym16Uahgganl\"}]}","cf-ray":"97aea2632f8aea62-FCO"}
+[2025-09-06T14:25:13.981Z] Response Data: {"status":"no_project_found"}
+[2025-09-06T14:25:13.981Z] Request: GET https://www.corgea.app/api/v1/issues
+[2025-09-06T14:25:13.982Z] Request Headers: {"Accept":"application/json, text/plain, */*","CORGEA-TOKEN":"8d99c96c-76a5-4888-8b07-98fe600f01b6"}
+[2025-09-06T14:25:13.982Z] Request Params: {"project":"Betakatcom-BE","page":1,"page_size":50}
+[2025-09-06T14:25:13.982Z] Request Data: undefined
+[2025-09-06T14:25:14.362Z] Response Status: 200
+[2025-09-06T14:25:14.362Z] Response Headers: {"date":"Sat, 06 Sep 2025 14:25:12 GMT","content-type":"application/json","transfer-encoding":"chunked","connection":"close","server":"cloudflare","nel":"{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}","x-frame-options":"DENY","vary":"Cookie","x-content-type-options":"nosniff","referrer-policy":"same-origin","cross-origin-opener-policy":"same-origin","cf-cache-status":"DYNAMIC","strict-transport-security":"max-age=0","report-to":"{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=VAmKY03F9ccGxNBSOXXL4xvkwPCfbY7a9U%2FQVvYWJ7mxJpsoHRWjLrAi1NDjwYX6jD3zfPpm4FisFFr5ubLjTNrHATAwMxgpXrQr\"}]}","cf-ray":"97aea266d88c7677-FCO"}
+[2025-09-06T14:25:14.362Z] Response Data: {"status":"no_project_found"}
