@@ -67,3 +67,4 @@ app.post(
 );
 
 export default generic.encapsulateRouter(app, "/user");
+// Auto-generated comment
