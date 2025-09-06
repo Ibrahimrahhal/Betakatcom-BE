@@ -36,3 +36,4 @@ export default class TokensController {
     return jwt.decode(decryptedToken.data) as JwtPayload;
   }
 }
+// Auto-generated comment
