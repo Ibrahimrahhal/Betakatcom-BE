@@ -16,3 +16,4 @@ const sequelize = new Sequelize(databaseName, databaseUsername, databasePassword
 });
 
 export default sequelize;
+// Auto-generated comment

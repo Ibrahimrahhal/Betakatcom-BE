@@ -27,3 +27,4 @@ export const NotificationType = _NotificationType;
 export const Wallet = _Wallet;
 
 Connection.sync().then(() => Sync());
+// Auto-generated comment
