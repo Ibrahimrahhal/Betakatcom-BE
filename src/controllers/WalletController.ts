@@ -23,3 +23,4 @@ export default class WalletController {
     await Wallet.increment("dept", { by: -1 * amount, where: { id }, transaction });
   }
 }
+// Auto-generated comment
