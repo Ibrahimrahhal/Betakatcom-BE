@@ -92,3 +92,4 @@ User.belongsTo(Wallet, {
   foreignKey: "wallet",
 });
 export default User;
+// Auto-generated comment
