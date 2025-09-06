@@ -37,3 +37,4 @@ NotificationType.init(
 );
 
 export default NotificationType;
+// Auto-generated comment

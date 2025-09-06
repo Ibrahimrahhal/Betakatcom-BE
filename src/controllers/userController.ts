@@ -74,3 +74,4 @@ export default class UserController {
     await User.update({ password: Crypto.hash(newPassword) }, { where: { id: userId } });
   }
 }
+// Auto-generated comment
