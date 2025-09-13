@@ -28,3 +28,4 @@ export default class server {
     routers.forEach((router) => app.use(router));
   }
 }
+// Auto-generated comment
