@@ -44,3 +44,4 @@ Card.hasOne(Transaction, {
   foreignKey: "card",
 });
 export default Card;
+// Auto-generated comment
