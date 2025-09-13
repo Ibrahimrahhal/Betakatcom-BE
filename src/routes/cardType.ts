@@ -62,3 +62,4 @@ app.delete(
 );
 
 export default generic.encapsulateRouter(app, "/card-type");
+// Auto-generated comment
