@@ -6,3 +6,4 @@ export default class WalletController {
     return await Card.create({ code, type, serialNumber });
   }
 }
+// Auto-generated comment

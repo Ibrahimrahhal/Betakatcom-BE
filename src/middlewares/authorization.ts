@@ -18,3 +18,4 @@ export default async function (req: Request, res: Response, next: NextFunction):
     res.sendStatus(HTTP_RESPONSES.UNAUTHORIZED);
   }
 }
+// Auto-generated comment
