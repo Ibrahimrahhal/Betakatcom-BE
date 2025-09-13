@@ -13,3 +13,4 @@ export default function (err: Error, req: Request, res: Response, next: NextFunc
   else errorMessage = defaultMessage;
   res.status(HTTP_RESPONSES.ERROR).send({ error: errorMessage });
 }
+// Auto-generated comment

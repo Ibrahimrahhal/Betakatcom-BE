@@ -36,3 +36,4 @@ export default class CardTypeController {
     await CardType.update({ deletedOn: Date.now() }, { where: { id: card.id } });
   }
 }
+// Auto-generated comment
